@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{140f9abe-2ab0-480b-beaa-e6aa4617f413}</ProjectGuid>
+    <ProjectGuid>{0D0106B2-0A93-4F83-827D-4F56D02A1135}</ProjectGuid>
     <RootNamespace>DiggerTheGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>DiggerTheGame</ProjectName>

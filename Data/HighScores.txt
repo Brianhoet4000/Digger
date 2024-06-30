@@ -14,3 +14,4 @@ Gangster, 1775
 Toppie, 1400
 bar4rgfN, 450
 bribri, 700
+bribri, 950

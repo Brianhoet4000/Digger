@@ -120,35 +120,6 @@ namespace dae
 		pGameObjFps->AddComponent(pFpsCounter);
 		scene.Add(pGameObjFps);
 
-		//Player One
-		{
-			const auto& pGameObjLivesText = std::make_shared<dae::GameObject>();
-			const auto& pLivesText = std::make_shared<dae::TextComponent>("Lives:", m_pFont, pGameObjLivesText.get());
-			pGameObjLivesText->SetRelativePosition(10, 410);
-			pGameObjLivesText->AddComponent(pLivesText);
-			scene.Add(pGameObjLivesText);
-
-			const auto& pGameObjPointText = std::make_shared<dae::GameObject>();
-			const auto& pPointsText = std::make_shared<dae::TextComponent>("Points:", m_pFont, pGameObjPointText.get());
-			pGameObjPointText->SetRelativePosition(10, 430);
-			pGameObjPointText->AddComponent(pPointsText);
-			scene.Add(pGameObjPointText);
-		}
-		//Player Two
-		{
-			const auto& pGameObjLivesText = std::make_shared<dae::GameObject>();
-			const auto& pLivesText = std::make_shared<dae::TextComponent>("Lives:", m_pFont, pGameObjLivesText.get());
-			pGameObjLivesText->SetRelativePosition(120, 410);
-			pGameObjLivesText->AddComponent(pLivesText);
-			scene.Add(pGameObjLivesText);
-
-			const auto& pGameObjPointText = std::make_shared<dae::GameObject>();
-			const auto& pPointsText = std::make_shared<dae::TextComponent>("Points:", m_pFont, pGameObjPointText.get());
-			pGameObjPointText->SetRelativePosition(120, 430);
-			pGameObjPointText->AddComponent(pPointsText);
-			scene.Add(pGameObjPointText);
-		}
-
 		//Mute sound
 		std::shared_ptr<GameCommands::MuteMusic> muteMusic = std::make_shared<GameCommands::MuteMusic>();
 		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_F2, muteMusic);
@@ -421,6 +392,21 @@ namespace dae
 
 	void ScreenManager::CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players, bool SecondPlayer)
 	{
+		//Player One
+		{
+			const auto& pGameObjLivesText = std::make_shared<dae::GameObject>();
+			const auto& pLivesText = std::make_shared<dae::TextComponent>("Lives:", m_pFont, pGameObjLivesText.get());
+			pGameObjLivesText->SetRelativePosition(10, 410);
+			pGameObjLivesText->AddComponent(pLivesText);
+			scene.Add(pGameObjLivesText);
+
+			const auto& pGameObjPointText = std::make_shared<dae::GameObject>();
+			const auto& pPointsText = std::make_shared<dae::TextComponent>("Points:", m_pFont, pGameObjPointText.get());
+			pGameObjPointText->SetRelativePosition(10, 430);
+			pGameObjPointText->AddComponent(pPointsText);
+			scene.Add(pGameObjPointText);
+		}
+
 		const auto& pPlayerLives = std::make_shared<dae::GameObject>();
 		const auto& pPlayerLiveText = std::make_shared<dae::TextComponent>(std::to_string(players[0]->GetComponent<HealthComponent>()->GetAmount()),
 			m_pFont, pPlayerLives.get());
@@ -435,8 +421,24 @@ namespace dae
 		pPlayerPoints->SetRelativePosition(75, 430);
 		scene.Add(pPlayerPoints);
 
+
 		if(SecondPlayer)
 		{
+			//Player Two
+			{
+				const auto& pGameObjLivesText = std::make_shared<dae::GameObject>();
+				const auto& pLivesText = std::make_shared<dae::TextComponent>("Lives:", m_pFont, pGameObjLivesText.get());
+				pGameObjLivesText->SetRelativePosition(120, 410);
+				pGameObjLivesText->AddComponent(pLivesText);
+				scene.Add(pGameObjLivesText);
+
+				const auto& pGameObjPointText = std::make_shared<dae::GameObject>();
+				const auto& pPointsText = std::make_shared<dae::TextComponent>("Points:", m_pFont, pGameObjPointText.get());
+				pGameObjPointText->SetRelativePosition(120, 430);
+				pGameObjPointText->AddComponent(pPointsText);
+				scene.Add(pGameObjPointText);
+			}
+
 			const auto& pPlayerLives2 = std::make_shared<dae::GameObject>();
 			const auto& pPlayerLiveText2 = std::make_shared<dae::TextComponent>(std::to_string(players[1]->GetComponent<HealthComponent>()->GetAmount()),
 				m_pFont, pPlayerLives2.get());
@@ -456,20 +458,6 @@ namespace dae
 	void ScreenManager::PlayerKilledResetLevelAndStats(dae::GameCollisionComponent* ownerbox) const
 	{
 		ownerbox->GetOwner()->GetComponent<HealthComponent>()->DecreaseAmount(1);
-		ownerbox->GetOwner()->GetComponent<PointComponent>()->SetAmount(0);
-		
-		const auto& scene = dae::SceneManager::GetInstance().GetActiveScene();
-		
-		if (ownerbox->GetOwner()->GetTag() == "Player_01")
-		{
-			const auto& points = GetInstance().GetGameObjectInScene(*scene, "PlayerOnePoints");
-			points->GetComponent<TextComponent>()->SetText(std::to_string(ownerbox->GetOwner()->GetComponent<PointComponent>()->GetAmount()));
-		}
-		else
-		{
-			const auto& points = GetInstance().GetGameObjectInScene(*scene, "PlayerTwoPoints");
-			points->GetComponent<TextComponent>()->SetText(std::to_string(ownerbox->GetOwner()->GetComponent<PointComponent>()->GetAmount()));
-		}
 
 		dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
 		dae::GameCollisionMngr::GetInstance().ClearAll();

@@ -36,8 +36,6 @@ void HighscoreComponent::Render() const
 
 void HighscoreComponent::EnterName(float deltaTime)
 {
-    //Check if score isnt 0
-
     if (m_HasEnteredName) return;
 
     if (m_TimeBeforeWriting < 1)

@@ -115,7 +115,7 @@ void HighscoreComponent::EnterName(float deltaTime)
         const auto pointsText = std::make_shared<dae::TextComponent>(text, smallFont, pointsObj.get());
         pointsObj->SetRelativePosition({ 340, -100 + i * 30 });
         pointsObj->AddComponent(pointsText);
-        m_pOwner->AddChild(pointsObj);
+        GetOwnerBaseComp()->AddChild(pointsObj);
     }
 
 

@@ -35,7 +35,7 @@ namespace dae
 	{
 		if (!m_MustTexture) return;
 
-		dae::Renderer::GetInstance().RenderTexture(*m_Texture, m_pOwner->GetWorldPosition().x, m_pOwner->GetWorldPosition().y);
+		dae::Renderer::GetInstance().RenderTexture(*m_Texture, GetOwnerBaseComp()->GetWorldPosition().x, GetOwnerBaseComp()->GetWorldPosition().y);
 	}
 
 	void TextureComponent::SetTexture(const std::string& filename)

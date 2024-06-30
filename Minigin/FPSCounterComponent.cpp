@@ -60,7 +60,7 @@ void dae::FPSCounterComponent::Render() const
 {
 	if (m_TextTexture != nullptr)
 	{
-		Renderer::GetInstance().RenderTexture(*m_TextTexture, m_pOwner->GetWorldPosition().x, m_pOwner->GetWorldPosition().y);
+		Renderer::GetInstance().RenderTexture(*m_TextTexture, GetOwnerBaseComp()->GetWorldPosition().x, GetOwnerBaseComp()->GetWorldPosition().y);
 	}
 }
 

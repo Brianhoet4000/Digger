@@ -14,15 +14,15 @@ void dae::BulletTimerComponent::Update(float deltaTime)
 {
 	if(m_HasShot)
 	{
-		auto pTex = m_pOwner->GetComponent<dae::TextureComponent>();
+		auto pTex = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>();
 
 		m_CurrentTime -= 1 * deltaTime;
 
-		if(m_pOwner->GetTag() == "Player_01")
+		if(GetOwnerBaseComp()->GetTag() == "Player_01")
 		{
 			pTex->SetTexture("Sprites/Player_Reloading.png");
 		}
-		if (m_pOwner->GetTag() == "Player_02")
+		if (GetOwnerBaseComp()->GetTag() == "Player_02")
 		{
 			pTex->SetTexture("Sprites/Player1_Reloading.png");
 		}
@@ -32,11 +32,11 @@ void dae::BulletTimerComponent::Update(float deltaTime)
 			m_HasShot = false;
 			m_CurrentTime = m_StartValue;
 
-			if (m_pOwner->GetTag() == "Player_01")
+			if (GetOwnerBaseComp()->GetTag() == "Player_01")
 			{
 				pTex->SetTexture("Sprites/Player.png");
 			}
-			if (m_pOwner->GetTag() == "Player_02")
+			if (GetOwnerBaseComp()->GetTag() == "Player_02")
 			{
 				pTex->SetTexture("Sprites/Player1.png");
 			}

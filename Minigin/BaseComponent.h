@@ -19,11 +19,12 @@ namespace dae
 		virtual void FixedUpdate(float);
 		virtual void Render() const;
 
+		GameObject* GetOwnerBaseComp() const { return m_pOwner; }
 
 	private:
-
+		dae::GameObject* m_pOwner{ nullptr };
 	protected:
 		bool m_needsUpdate{ true };
-		dae::GameObject* m_pOwner{ nullptr };
+		
 	};
 }

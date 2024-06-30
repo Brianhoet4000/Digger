@@ -17,5 +17,5 @@ void dae::Transform::SetPosition(const float x, const float y)
 
 //void dae::Transform::Update(float)
 //{
-//	m_position = m_pOwner->GetWorldPosition();
+//	m_position = GetOwnerBaseComp->GetWorldPosition();
 //}

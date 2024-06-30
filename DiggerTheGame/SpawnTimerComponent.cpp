@@ -20,14 +20,14 @@ void dae::SpawnTimerComponent::Update(float deltaTime)
 {
 	if (!m_Start)
 	{
-		auto enemy = std::make_shared<dae::EnemyPrefab>(*m_pScene, m_pOwner->GetRelativePosition());
+		auto enemy = std::make_shared<dae::EnemyPrefab>(*m_pScene, GetOwnerBaseComp()->GetRelativePosition());
 		m_pScene->Add(enemy->returnGameObject());
 		--m_EnemyNumber;
 		m_Start = true;
 
 		if(m_EnemyNumber == 0)
 		{
-			auto pTexture = m_pOwner->GetComponent<dae::TextureComponent>();
+			auto pTexture = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>();
 			pTexture->SetMustRender(true);
 		}
 	}

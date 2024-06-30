@@ -22,7 +22,7 @@ namespace dae
 		SDL_FRect GetCollisionRect() const;
 		void SetCollisionRect(float Offset);
 
-		GameObject* GetOwner() const;
+		//virtual GameObject* GetOwnerFromColl() const;
 
 		bool GetRenderCollisionBox() const { return m_RenderCollisionBox; }
 		void SetRenderCollisionBox(bool RenderCollisionBox) { m_RenderCollisionBox = RenderCollisionBox; }

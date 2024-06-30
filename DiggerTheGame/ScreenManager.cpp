@@ -457,7 +457,7 @@ namespace dae
 
 	void ScreenManager::PlayerKilledResetLevelAndStats(dae::GameCollisionComponent* ownerbox) const
 	{
-		ownerbox->GetOwner()->GetComponent<HealthComponent>()->DecreaseAmount(1);
+		ownerbox->GetOwnerBaseComp()->GetComponent<HealthComponent>()->DecreaseAmount(1);
 
 		dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
 		dae::GameCollisionMngr::GetInstance().ClearAll();

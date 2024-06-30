@@ -16,9 +16,9 @@ dae::AIMovementComponent::AIMovementComponent(dae::GameObject* owner)
 
 void dae::AIMovementComponent::Update(float deltaTime)
 {
-	if (m_pOwner->ReturnDeleting()) return;
+	if (GetOwnerBaseComp()->ReturnDeleting()) return;
 
-	const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(m_pOwner->GetComponent<dae::GameCollisionComponent>());
+	const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
 	if (pPlayerCollision != nullptr)
 	{
 		dae::ScreenManager::GetInstance().PlayerKilledResetLevelAndStats(pPlayerCollision);
@@ -30,27 +30,27 @@ void dae::AIMovementComponent::Update(float deltaTime)
 	if (pOverlappedBox != nullptr)
 	{
 		//Gold Related
-		if (pOverlappedBox->GetOwner()->GetTag() == "Gold")
+		if (pOverlappedBox->GetOwnerBaseComp()->GetTag() == "Gold")
 		{
-			const auto& goldState = pOverlappedBox->GetOwner()->GetComponent<dae::GoldStateComponent>();
+			const auto& goldState = pOverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GoldStateComponent>();
 
 			//If Gold not Broken and falls die
 			if (!goldState->GetCoinsBool() && goldState->GetMoneyBagState() == dae::GoldStateComponent::Falling)
 			{
-				m_pOwner->MarkTrueForDeleting();
+				GetOwnerBaseComp()->MarkTrueForDeleting();
 				dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(m_pCollision);
 			}
 		}
 	}
 
-	const auto& pHobbincomp = m_pOwner->GetComponent<dae::HobbinComponent>();
+	const auto& pHobbincomp = GetOwnerBaseComp()->GetComponent<dae::HobbinComponent>();
 
 	if (pHobbincomp->ReturnCharacterState() == HobbinComponent::Nobbin)
 	{
 		if (m_Horizontal)
 		{
-			bool left = dae::GameCollisionMngr::GetInstance().AIRaycast(m_pOwner->GetRelativePosition(), m_DirLeft, m_pCollision);
-			bool right = dae::GameCollisionMngr::GetInstance().AIRaycast(m_pOwner->GetRelativePosition(), m_DirRight, m_pCollision);
+			bool left = dae::GameCollisionMngr::GetInstance().AIRaycast(GetOwnerBaseComp()->GetRelativePosition(), m_DirLeft, m_pCollision);
+			bool right = dae::GameCollisionMngr::GetInstance().AIRaycast(GetOwnerBaseComp()->GetRelativePosition(), m_DirRight, m_pCollision);
 
 
 			if (right)
@@ -74,8 +74,8 @@ void dae::AIMovementComponent::Update(float deltaTime)
 		}
 		else if (m_Vertical)
 		{
-			bool up = dae::GameCollisionMngr::GetInstance().AIRaycast(m_pOwner->GetRelativePosition(), m_DirUp, m_pCollision);
-			bool down = dae::GameCollisionMngr::GetInstance().AIRaycast(m_pOwner->GetRelativePosition(), m_DirDown, m_pCollision);
+			bool up = dae::GameCollisionMngr::GetInstance().AIRaycast(GetOwnerBaseComp()->GetRelativePosition(), m_DirUp, m_pCollision);
+			bool down = dae::GameCollisionMngr::GetInstance().AIRaycast(GetOwnerBaseComp()->GetRelativePosition(), m_DirDown, m_pCollision);
 
 			if (up)
 			{
@@ -125,35 +125,35 @@ void dae::AIMovementComponent::Update(float deltaTime)
 		if (pOverlappedBoxDirtAndEmerald != nullptr)
 		{
 			//Dirt block delete
-			if (pOverlappedBoxDirtAndEmerald->GetOwner()->GetTag() == "Break")
+			if (pOverlappedBoxDirtAndEmerald->GetOwnerBaseComp()->GetTag() == "Break")
 			{
-				dae::GameCollisionMngr::GetInstance().RemoveDirtBox(pOverlappedBoxDirtAndEmerald->GetOwner()->GetComponent<dae::GameCollisionComponent>());
-				pOverlappedBoxDirtAndEmerald->GetOwner()->MarkTrueForDeleting();
+				dae::GameCollisionMngr::GetInstance().RemoveDirtBox(pOverlappedBoxDirtAndEmerald->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
+				pOverlappedBoxDirtAndEmerald->GetOwnerBaseComp()->MarkTrueForDeleting();
 			}
 
 			//Overlap with emerald pick up
-			if (pOverlappedBoxDirtAndEmerald->GetOwner()->GetTag() == "Emerald")
+			if (pOverlappedBoxDirtAndEmerald->GetOwnerBaseComp()->GetTag() == "Emerald")
 			{
-				dae::GameCollisionMngr::GetInstance().RemoveEmeraldBox(pOverlappedBoxDirtAndEmerald->GetOwner()->GetComponent<dae::GameCollisionComponent>());
-				pOverlappedBoxDirtAndEmerald->GetOwner()->MarkTrueForDeleting();
+				dae::GameCollisionMngr::GetInstance().RemoveEmeraldBox(pOverlappedBoxDirtAndEmerald->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
+				pOverlappedBoxDirtAndEmerald->GetOwnerBaseComp()->MarkTrueForDeleting();
 			}
 		}
 
 		if(m_Horizontal)
 		{
 
-			if (m_pClosestPlayer->GetRelativePosition().y - offset < m_pOwner->GetRelativePosition().y)
+			if (m_pClosestPlayer->GetRelativePosition().y - offset < GetOwnerBaseComp()->GetRelativePosition().y)
 			{
 				MoveAI(deltaTime, m_DirUp);
 			}
-			else if(m_pClosestPlayer->GetRelativePosition().y + offset > m_pOwner->GetRelativePosition().y)
+			else if(m_pClosestPlayer->GetRelativePosition().y + offset > GetOwnerBaseComp()->GetRelativePosition().y)
 			{
 				MoveAI(deltaTime, m_DirDown);
 			}
 
 			
-			if(m_pClosestPlayer->GetRelativePosition().y < m_pOwner->GetRelativePosition().y + offset &&
-				m_pClosestPlayer->GetRelativePosition().y > m_pOwner->GetRelativePosition().y - offset)
+			if(m_pClosestPlayer->GetRelativePosition().y <  GetOwnerBaseComp()->GetRelativePosition().y + offset &&
+				m_pClosestPlayer->GetRelativePosition().y >  GetOwnerBaseComp()->GetRelativePosition().y - offset)
 			{
 				m_Vertical = true;
 				m_Horizontal = false;
@@ -162,17 +162,17 @@ void dae::AIMovementComponent::Update(float deltaTime)
 		else if(m_Vertical)
 		{
 
-			if (m_pClosestPlayer->GetRelativePosition().x - offset < m_pOwner->GetRelativePosition().x)
+			if (m_pClosestPlayer->GetRelativePosition().x - offset < GetOwnerBaseComp()->GetRelativePosition().x)
 			{
 				MoveAI(deltaTime, m_DirLeft);
 			}
-			else if (m_pClosestPlayer->GetRelativePosition().y + offset > m_pOwner->GetRelativePosition().y)
+			else if (m_pClosestPlayer->GetRelativePosition().y + offset > GetOwnerBaseComp()->GetRelativePosition().y)
 			{
 				MoveAI(deltaTime, m_DirRight);
 			}
 
-			if (m_pClosestPlayer->GetRelativePosition().x < m_pOwner->GetRelativePosition().x - offset &&
-				m_pClosestPlayer->GetRelativePosition().y > m_pOwner->GetRelativePosition().y + offset)
+			if (m_pClosestPlayer->GetRelativePosition().x < GetOwnerBaseComp()->GetRelativePosition().x - offset &&
+				m_pClosestPlayer->GetRelativePosition().y > GetOwnerBaseComp()->GetRelativePosition().y + offset)
 			{
 				m_Vertical = false;
 				m_Horizontal = true;
@@ -183,7 +183,7 @@ void dae::AIMovementComponent::Update(float deltaTime)
 
 void dae::AIMovementComponent::MoveAI(float deltaTime, glm::vec2 dir) const
 {
-	m_pOwner->SetRelativePosition(m_pOwner->GetRelativePosition() + dir * m_Speed * deltaTime);
+	GetOwnerBaseComp()->SetRelativePosition(GetOwnerBaseComp()->GetRelativePosition() + dir * m_Speed * deltaTime);
 }
 
 void dae::AIMovementComponent::GetClosestPlayer()
@@ -198,7 +198,7 @@ void dae::AIMovementComponent::GetClosestPlayer()
 	{
 		if (player == nullptr) continue;;
 
-		const float dist = glm::distance(player->GetRelativePosition(), m_pOwner->GetRelativePosition());
+		const float dist = glm::distance(player->GetRelativePosition(), GetOwnerBaseComp()->GetRelativePosition());
 		if (dist < closestdist)
 		{
 			closestdist = dist;

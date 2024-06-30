@@ -9,16 +9,16 @@ dae::GameCollisionComponent::GameCollisionComponent(dae::GameObject* owner, bool
 	:BaseComponent(owner)
 	,m_IsVersus{ IsVersus }
 {
-	m_CollisionBox.w = m_pOwner->GetComponent<dae::TextureComponent>()->GetSize().x;
-	m_CollisionBox.h = m_pOwner->GetComponent<dae::TextureComponent>()->GetSize().y;
+	m_CollisionBox.w = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>()->GetSize().x;
+	m_CollisionBox.h = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>()->GetSize().y;
 
-	GameCollisionMngr::GetInstance().AddCollisionBox(m_pOwner, this);
+	GameCollisionMngr::GetInstance().AddCollisionBox(GetOwnerBaseComp(), this);
 }
 
 void dae::GameCollisionComponent::Update(float)
 {
-	m_CollisionBox.x = m_pOwner->GetWorldPosition().x + m_Offset;
-	m_CollisionBox.y = m_pOwner->GetWorldPosition().y + m_Offset;
+	m_CollisionBox.x = GetOwnerBaseComp()->GetWorldPosition().x + m_Offset;
+	m_CollisionBox.y = GetOwnerBaseComp()->GetWorldPosition().y + m_Offset;
 }
 
 void dae::GameCollisionComponent::Render() const
@@ -38,11 +38,6 @@ SDL_FRect dae::GameCollisionComponent::GetCollisionRect() const
 void dae::GameCollisionComponent::SetCollisionRectOffset(float Offset)
 {
 	m_Offset = Offset;
-	m_CollisionBox.w = m_pOwner->GetComponent<dae::TextureComponent>()->GetSize().x - (Offset * 2.0f);
-	m_CollisionBox.h = m_pOwner->GetComponent<dae::TextureComponent>()->GetSize().y - (Offset * 2.0f);
-}
-
-dae::GameObject* dae::GameCollisionComponent::GetOwner() const
-{
-	return m_pOwner;
+	m_CollisionBox.w = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>()->GetSize().x - (Offset * 2.0f);
+	m_CollisionBox.h = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>()->GetSize().y - (Offset * 2.0f);
 }

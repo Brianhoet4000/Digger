@@ -17,21 +17,21 @@ dae::GoldStateComponent::GoldStateComponent(dae::GameObject* owner)
 
 void dae::GoldStateComponent::Update(float deltaTime)
 {
-	if (m_pOwner == nullptr) return;
+	if (GetOwnerBaseComp() == nullptr) return;
 
 	if(!m_ResetEstimatedPos)
 	{
-		m_EstimatedPos = m_pOwner->GetRelativePosition() + glm::vec2{0, 48};
+		m_EstimatedPos = GetOwnerBaseComp()->GetRelativePosition() + glm::vec2{0, 48};
 		m_ResetEstimatedPos = true;
 	}
 
-	if (!dae::GameCollisionMngr::GetInstance().Raycast(m_pOwner->GetRelativePosition(),
-		m_Direction, m_pOwner->GetComponent<GameCollisionComponent>(), true))
+	if (!dae::GameCollisionMngr::GetInstance().Raycast(GetOwnerBaseComp()->GetRelativePosition(),
+		m_Direction, GetOwnerBaseComp()->GetComponent<GameCollisionComponent>(), true))
 	{
-		if (m_pOwner->GetRelativePosition().y >= m_EstimatedPos.y - 2.f && !m_Broke && m_MoneyState == Full)
+		if (GetOwnerBaseComp()->GetRelativePosition().y >= m_EstimatedPos.y - 2.f && !m_Broke && m_MoneyState == Full)
 		{
 			//Here Coins
-			const auto& texture = m_pOwner->GetComponent<dae::TextureComponent>();
+			const auto& texture = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>();
 			texture->SetTexture("Sprites/Gold.png");
 			m_Broke = true;
 
@@ -85,7 +85,7 @@ void dae::GoldStateComponent::Update(float deltaTime)
 	{
 		if (!m_Broke)
 		{
-			const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(m_pOwner->GetComponent<dae::GameCollisionComponent>());
+			const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
 			if (pPlayerCollision != nullptr)
 			{
 				dae::ScreenManager::GetInstance().PlayerKilledResetLevelAndStats(pPlayerCollision);
@@ -94,9 +94,9 @@ void dae::GoldStateComponent::Update(float deltaTime)
 		}
 
 		//Falling
-		const glm::vec2 newPos = m_pOwner->GetRelativePosition();
+		const glm::vec2 newPos = GetOwnerBaseComp()->GetRelativePosition();
 		m_MoneyState = Falling;
-		m_pOwner->SetRelativePosition(newPos.x, newPos.y + m_Speed * deltaTime);
+		GetOwnerBaseComp()->SetRelativePosition(newPos.x, newPos.y + m_Speed * deltaTime);
 	}
 
 	if(m_StartTimer)

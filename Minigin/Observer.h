@@ -10,7 +10,7 @@ namespace dae
 	{
 	public:
 		virtual ~Observer() {}
-		virtual void Notify(dae::Event event, dae::GameObject* gameObject) = 0;
+		virtual void Notify(dae::Event event) = 0;
 	};
 
 }

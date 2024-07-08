@@ -80,9 +80,6 @@
     <ClCompile Include="EnemySpawner.cpp">
       <Filter>Prefab</Filter>
     </ClCompile>
-    <ClCompile Include="ConditionSingleCoopComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -98,14 +95,14 @@
     <ClCompile Include="HighscoreComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="ConditionVersusComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="NobbinState.cpp">
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="HobbinState.cpp">
       <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="ConditionComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,9 +163,6 @@
     <ClInclude Include="EnemySpawner.h">
       <Filter>Prefab</Filter>
     </ClInclude>
-    <ClInclude Include="ConditionSingleCoopComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerManager.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -181,10 +175,7 @@
     <ClInclude Include="HighscoreComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="ConditionVersusComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthObserver.h">
+    <ClInclude Include="GameObserver.h">
       <Filter>Observers</Filter>
     </ClInclude>
     <ClInclude Include="PointObserver.h">
@@ -195,6 +186,9 @@
     </ClInclude>
     <ClInclude Include="HobbinState.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="ConditionComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

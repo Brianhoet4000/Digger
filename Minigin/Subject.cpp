@@ -16,10 +16,10 @@ void dae::Subject::RemoveObserver(std::shared_ptr<Observer> observer)
     m_pObservers.erase(std::remove(m_pObservers.begin(), m_pObservers.end(), observer), m_pObservers.end());
 }
 
-void dae::Subject::NotifyObservers(dae::Event event)
+void dae::Subject::NotifyObservers(dae::Event event) const
 {
     for (const auto& observer : m_pObservers)
     {
-        observer->Notify(event, m_pOwner);
+        observer->Notify(event);
     }
 }

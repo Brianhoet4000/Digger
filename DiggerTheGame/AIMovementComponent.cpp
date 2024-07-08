@@ -21,6 +21,8 @@ void dae::AIMovementComponent::Update(float deltaTime)
 	const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
 	if (pPlayerCollision != nullptr)
 	{
+		if (pPlayerCollision->GetIsVersus()) return;
+
 		dae::ScreenManager::GetInstance().PlayerKilledResetLevelAndStats(pPlayerCollision);
 
 		return;
@@ -196,7 +198,8 @@ void dae::AIMovementComponent::GetClosestPlayer()
 
 	for (const auto& player : pPlayers)
 	{
-		if (player == nullptr) continue;;
+		if (player == nullptr) continue;
+		if(player->GetComponent<GameCollisionComponent>()->GetIsVersus()) continue;
 
 		const float dist = glm::distance(player->GetRelativePosition(), GetOwnerBaseComp()->GetRelativePosition());
 		if (dist < closestdist)

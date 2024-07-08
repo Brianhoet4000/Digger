@@ -178,9 +178,6 @@
     <ClInclude Include="GameObserver.h">
       <Filter>Observers</Filter>
     </ClInclude>
-    <ClInclude Include="PointObserver.h">
-      <Filter>Observers</Filter>
-    </ClInclude>
     <ClInclude Include="NobbinState.h">
       <Filter>States</Filter>
     </ClInclude>

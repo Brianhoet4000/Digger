@@ -230,7 +230,6 @@ xcopy $(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\$(PlatformTarget)\*.dll $(Outp
     <ClInclude Include="PlayerTwo.h" />
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="PointComponent.h" />
-    <ClInclude Include="PointObserver.h" />
     <ClInclude Include="SpawnTimerComponent.h" />
     <ClInclude Include="LevelPrefab.h" />
     <ClInclude Include="PlayerOne.h" />

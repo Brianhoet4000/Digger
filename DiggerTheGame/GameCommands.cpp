@@ -57,7 +57,6 @@ void GameCommands::DiggerMovement::Execute(float deltaTime)
 
     	if (!dae::GameCollisionMngr::GetInstance().Raycast(m_pGameObject->GetRelativePosition(), m_Dir, m_pCollision, true))
             return;
-       
     }
 
     pos.x += m_Dir.x * deltaTime;

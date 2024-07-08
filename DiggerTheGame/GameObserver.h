@@ -18,6 +18,7 @@ namespace dae
                 break;
             case Event::LEVEL_COMPLETED:
                 std::cout << "Level completed!\n";
+                dae::ScreenManager::GetInstance().ProceedNextLevel();
                 // Handle level completion logic here
                 break;
             default:

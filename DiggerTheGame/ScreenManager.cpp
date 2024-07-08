@@ -89,7 +89,7 @@ namespace dae
 
 		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_TAB, Switch);
 		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_E, Accept);
-		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_Q, SkipLevel);
+		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_F1, SkipLevel);
 		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_R, ResetLevel);
 
 		dae::servicelocator::register_sound_system(std::make_unique<dae::SoundSystem>());
@@ -431,6 +431,23 @@ namespace dae
 			pPlayerPoints2->AddComponent(pPlayerPointsText2);
 			pPlayerPoints2->SetRelativePosition(185, 430);
 			scene.Add(pPlayerPoints2);
+		}
+	}
+
+	void ScreenManager::IncreasePoint(GameObject* player, int points)
+	{
+		Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
+		if (player->GetTag() == "Player_01")
+		{
+			player->GetComponent<PointComponent>()->IncreaseAmount(points);
+			const auto& pointPlayerOnePoints = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerOnePoints");
+			pointPlayerOnePoints->GetComponent<TextComponent>()->SetText(std::to_string(player->GetComponent<PointComponent>()->GetAmount()));
+		}
+		else if (player->GetTag() == "Player_02")
+		{
+			player->GetComponent<PointComponent>()->IncreaseAmount(points);
+			const auto& pointPlayerTwoPoints = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerTwoPoints");
+			pointPlayerTwoPoints->GetComponent<TextComponent>()->SetText(std::to_string(player->GetComponent<PointComponent>()->GetAmount()));
 		}
 	}
 

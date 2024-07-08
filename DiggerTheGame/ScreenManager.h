@@ -41,6 +41,7 @@ namespace dae
 		void CreateLevelOne(dae::Scene& scene);
 		void CreateLevelTwo(dae::Scene& scene);
 		void CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players, bool SecondPlayer);
+		void IncreasePoint(GameObject* player, int points);
 		void PlayerKilledResetLevelAndStats(dae::GameCollisionComponent* ownerbox) const;
 		GameObject* GetGameObjectInScene(dae::Scene& scene, std::string tag);
 

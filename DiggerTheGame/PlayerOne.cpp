@@ -5,6 +5,7 @@
 #include <TextureComponent.h>
 #include "Counter.h"
 #include "GameCommands.h"
+#include "GameObserver.h"
 #include "HealthComponent.h"
 #include "PointComponent.h"
 #include "ResourceManager.h"

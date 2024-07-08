@@ -16,8 +16,6 @@ dae::Emerald::Emerald(glm::vec2 pos)
 	pCollider->SetRenderCollisionBox(false);
 	m_pEmerald->AddComponent(pCollider);
 
-	
-
 	//Pos
 	m_pEmerald->SetRelativePosition({ pos });
 }

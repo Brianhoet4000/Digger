@@ -38,7 +38,6 @@ void dae::ConditionComponent::Update(float)
     if (m_Finished && !m_DoOnce && dae::ScreenManager::GetInstance().GetCurrentLevel() != 3)
     {
         NotifyObservers(Event::LEVEL_COMPLETED);
-        dae::ScreenManager::GetInstance().ProceedNextLevel();
         m_DoOnce = true;
     }
 }

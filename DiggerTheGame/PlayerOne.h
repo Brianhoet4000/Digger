@@ -17,7 +17,6 @@ namespace dae
 		PlayerOne& operator=(PlayerOne&& other) = delete;
 
 		std::shared_ptr<dae::GameObject> ReturnPlayer() { return m_pPlayerOne; }
-		
 
 	private:
 		const float m_Speed{ 50.f };

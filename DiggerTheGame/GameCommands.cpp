@@ -12,11 +12,15 @@ GameCommands::DiggerMovement::DiggerMovement(std::shared_ptr<dae::GameObject> ow
 	m_Dir = dir;
     m_pCollision = m_pGameObject->GetComponent<dae::GameCollisionComponent>();
     m_Digger = digger;
+    m_psubJect = m_pGameObject->getSub();
 }
 
 void GameCommands::DiggerMovement::Execute(float deltaTime)
 {
     if (m_pGameObject->ReturnDeleting()) return;
+
+    if (!dae::GameCollisionMngr::GetInstance().Raycast(m_pGameObject->GetRelativePosition(), m_Dir, m_pCollision, false))
+        return;
 
     glm::vec2 pos = m_pGameObject->GetRelativePosition();
 
@@ -46,17 +50,16 @@ void GameCommands::DiggerMovement::Execute(float deltaTime)
             }
         }
 
-        dae::GameCollisionMngr::GetInstance().PlayerLogicBox(m_pGameObject->GetComponent<dae::GameCollisionComponent>(), m_Dir);
+        dae::GameCollisionMngr::GetInstance().PlayerLogicBox(m_pGameObject->GetComponent<dae::GameCollisionComponent>(), m_Dir, *m_psubJect);
 
-        if (!dae::GameCollisionMngr::GetInstance().Raycast(m_pGameObject->GetRelativePosition(), m_Dir, m_pCollision, false))
-            return;
+        
     }
     else //Verus -> Nobbin
     {
-        dae::GameCollisionMngr::GetInstance().NobbinLogicBox(m_pGameObject->GetComponent<dae::GameCollisionComponent>(), m_Dir);
-
-    	if (!dae::GameCollisionMngr::GetInstance().Raycast(m_pGameObject->GetRelativePosition(), m_Dir, m_pCollision, true))
+        if (!dae::GameCollisionMngr::GetInstance().Raycast(m_pGameObject->GetRelativePosition(), m_Dir, m_pCollision, true))
             return;
+
+        dae::GameCollisionMngr::GetInstance().NobbinLogicBox(m_pGameObject->GetComponent<dae::GameCollisionComponent>(), m_Dir);
     }
 
     pos.x += m_Dir.x * deltaTime;

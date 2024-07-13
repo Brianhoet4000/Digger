@@ -20,7 +20,7 @@ namespace dae
 
 		void AddObserver(std::shared_ptr<Observer> observer);
 		void RemoveObserver(std::shared_ptr<Observer> observer);
-		void NotifyObservers(Event event) const;
+		void NotifyObservers(Event event, GameObject* gameObject = nullptr) const;
 
 	private:
 		dae::GameObject* m_pOwner;

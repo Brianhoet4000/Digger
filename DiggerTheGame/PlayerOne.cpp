@@ -15,6 +15,13 @@ dae::PlayerOne::PlayerOne(dae::Scene& scene)
 {
 	m_pPlayerOne = std::make_shared<dae::GameObject>("Player_01");
 
+	auto psubject = new dae::Subject(m_pPlayerOne.get());
+
+	auto pgameObject = std::make_shared<dae::GameObserver>();
+	psubject->AddObserver(pgameObject);
+
+	m_pPlayerOne->setSub(psubject);
+
 	//Texture
 	const auto& pTexture = std::make_shared<dae::TextureComponent>(m_pPlayerOne.get());
 	pTexture->SetTexture("Sprites/Player.png");
@@ -74,4 +81,6 @@ dae::PlayerOne::PlayerOne(dae::Scene& scene)
 	m_pPlayerOne->AddComponent(pPoints);
 
 	scene.Add(m_pPlayerOne);
+
+	//psubject->NotifyObservers(LEVEL_COMPLETED, m_pPlayerOne.get())
 }

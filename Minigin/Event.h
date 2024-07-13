@@ -5,10 +5,10 @@ namespace dae
 {
 	enum Event
 	{
-		Update,
-		PLAYER_RECEIVED_DAMAGE,
 		PLAYER_DIED,
-		SCORE_ADDED,
+		SCORE_ADDED_25,
+		SCORE_ADDED_250,
+		SCORE_ADDED_500,
 		LEVEL_COMPLETED
 	};
 }

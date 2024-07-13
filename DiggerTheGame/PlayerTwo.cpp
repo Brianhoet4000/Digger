@@ -5,6 +5,7 @@
 #include <TextureComponent.h>
 #include "Counter.h"
 #include "GameCommands.h"
+#include "GameObserver.h"
 #include "HealthComponent.h"
 #include "HobbinComponent.h"
 #include "PointComponent.h"
@@ -14,6 +15,13 @@
 dae::PlayerTwo::PlayerTwo(dae::Scene& scene,  bool Coop)
 {
 	m_pPlayerTwo = std::make_shared<dae::GameObject>("Player_02");
+
+	auto psubject = new dae::Subject(m_pPlayerTwo.get());
+
+	auto pgameObject = std::make_shared<dae::GameObserver>();
+	psubject->AddObserver(pgameObject);
+
+	m_pPlayerTwo->setSub(psubject);
 
 	std::shared_ptr<GameCommands::DiggerMovement> moveCommandUp;
 	std::shared_ptr<GameCommands::DiggerMovement> moveCommandDown;

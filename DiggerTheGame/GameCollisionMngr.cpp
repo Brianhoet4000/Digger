@@ -401,7 +401,7 @@ namespace dae
         return false;
     }
 
-    void GameCollisionMngr::PlayerLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir)
+    void GameCollisionMngr::PlayerLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir, Subject& sub)
     {
         const auto& OverlappedBox = CheckForCollisionComponent(box);
 
@@ -417,7 +417,7 @@ namespace dae
             //Overlap with emerald pick up
             if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Emerald")
             {
-                ScreenManager::GetInstance().IncreasePoint(box->GetOwnerBaseComp(), 25);
+                sub.NotifyObservers(SCORE_ADDED_25, box->GetOwnerBaseComp());
 
                 RemoveEmeraldBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
                 OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
@@ -435,7 +435,6 @@ namespace dae
                 {
                     glm::vec2 newPos = { OverlappedBox->GetOwnerBaseComp()->GetRelativePosition().x + m_Dim, OverlappedBox->GetOwnerBaseComp()->GetRelativePosition().y };
                     OverlappedBox->GetOwnerBaseComp()->SetRelativePosition(newPos);
-                    
                 }
                 //Push Gold Right
                 else if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling
@@ -448,7 +447,8 @@ namespace dae
                 //If Gold Broken and overlap pick up
                 if (goldState->GetCoinsBool())
                 {
-                    ScreenManager::GetInstance().IncreasePoint(box->GetOwnerBaseComp(), 500);
+                    //ScreenManager::GetInstance().IncreasePoint(box->GetOwnerBaseComp(), 500);
+                    sub.NotifyObservers(SCORE_ADDED_500, box->GetOwnerBaseComp());
 
                     RemoveGoldBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
                     OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();

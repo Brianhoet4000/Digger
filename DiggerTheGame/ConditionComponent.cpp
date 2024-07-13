@@ -20,7 +20,7 @@ void dae::ConditionComponent::Update(float)
     {
         if (player->GetComponent<HealthComponent>()->GetAmount() <= -1)
         {
-            NotifyObservers(Event::PLAYER_DIED);
+            NotifyObservers(Event::PLAYER_DIED, player.get());
             dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
             dae::SceneManager::GetInstance().SetActiveScene("GameOver");
             return;

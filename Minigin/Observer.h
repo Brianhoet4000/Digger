@@ -1,16 +1,14 @@
 #pragma once
 #include "Event.h"
-#include <string>
 
 namespace dae
 {
-	class GameObject;
+    class GameObject;
 
-	class Observer
-	{
-	public:
-		virtual ~Observer() {}
-		virtual void Notify(dae::Event event) = 0;
-	};
-
+    class Observer
+    {
+    public:
+        virtual ~Observer() {}
+        virtual void Notify(Event event, GameObject* gameObject = nullptr) = 0;
+    };
 }

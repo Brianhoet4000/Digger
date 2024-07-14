@@ -21,3 +21,5 @@ bribri, 4250
 bribri, 5000
 bribri, 4575
 eeeeeee, 1150
+goat, 4300
+Steffi, 6125

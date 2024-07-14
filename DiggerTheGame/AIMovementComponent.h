@@ -24,7 +24,7 @@ namespace dae
 		void GetClosestPlayer();
 
 	private:
-		float m_Speed{40.f};
+		float m_Speed{45.f};
 		GameCollisionComponent* m_pCollision;
 		glm::vec2 m_DirLeft{-1,0};
 		glm::vec2 m_DirRight{1, 0};

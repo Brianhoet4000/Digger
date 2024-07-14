@@ -11,12 +11,13 @@
 #include "TextureComponent.h"
 
 
-dae::BulletComponent::BulletComponent(dae::GameObject* owner, glm::vec2 vel, int amountOfBounces)
+dae::BulletComponent::BulletComponent(dae::GameObject* owner, glm::vec2 vel, int amountOfBounces, GameObject* ownerOfBullet)
 	:BaseComponent(owner)
-	,m_vel{vel}
+	,m_Vel{vel}
 	,m_Bounce{0}
 	,m_AmountOfBounce{amountOfBounces}
 	,m_Speed{75.f}
+	,m_OwnerOfBullet{ownerOfBullet}
 {
 	
 }
@@ -28,7 +29,7 @@ void dae::BulletComponent::Update(float deltaTime)
 	if ((dae::GameCollisionMngr::GetInstance().CheckForOverlapDirt(pColliderBullet) ||
 		dae::GameCollisionMngr::GetInstance().CheckForOverlapWall(pColliderBullet)) && m_Bounce < m_AmountOfBounce)
 	{
-		m_vel = -m_vel;
+		m_Vel = -m_Vel;
 		++m_Bounce;
 	}
 	else if((dae::GameCollisionMngr::GetInstance().CheckForOverlapDirt(pColliderBullet) ||
@@ -45,11 +46,9 @@ void dae::BulletComponent::Update(float deltaTime)
 		GetOwnerBaseComp()->MarkTrueForDeleting();
 		dae::GameCollisionMngr::GetInstance().RemoveBulletBox(pColliderBullet);
 
-		secondPlayerEnemy->GetOwnerBaseComp()->GetComponent<HealthComponent>()->DecreaseAmount(1);
-		secondPlayerEnemy->GetOwnerBaseComp()->GetComponent<PointComponent>()->SetAmount(0);
+		secondPlayerEnemy->GetOwnerBaseComp()->getSub()->NotifyObservers(PLAYER_DIED, secondPlayerEnemy->GetOwnerBaseComp());
 
 		const auto& scene = dae::SceneManager::GetInstance().GetActiveScene();
-
 		const auto& points = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerTwoPoints");
 		points->GetComponent<TextComponent>()->SetText(std::to_string(secondPlayerEnemy->GetOwnerBaseComp()->GetComponent<PointComponent>()->GetAmount()));
 
@@ -61,6 +60,8 @@ void dae::BulletComponent::Update(float deltaTime)
 	const auto enemy = dae::GameCollisionMngr::GetInstance().CheckOverlapWithEnemiesComponent(pColliderBullet);
 	if (enemy != nullptr)
 	{
+		m_OwnerOfBullet->getSub()->NotifyObservers(SCORE_ADDED_250, m_OwnerOfBullet);
+
 		enemy->GetOwnerBaseComp()->MarkTrueForDeleting();
 		dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(enemy->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
 
@@ -68,7 +69,7 @@ void dae::BulletComponent::Update(float deltaTime)
 		dae::GameCollisionMngr::GetInstance().RemoveBulletBox(pColliderBullet);
 	}
 
-	const auto newPos = GetOwnerBaseComp()->GetRelativePosition() + m_vel * m_Speed * deltaTime;
+	const auto newPos = GetOwnerBaseComp()->GetRelativePosition() + m_Vel * m_Speed * deltaTime;
 	GetOwnerBaseComp()->SetRelativePosition(newPos);
 
 }

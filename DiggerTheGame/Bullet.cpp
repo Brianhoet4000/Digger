@@ -3,7 +3,7 @@
 #include "GameCollisionComponent.h"
 #include "TextureComponent.h"
 
-dae::Bullet::Bullet(glm::vec2 pos, glm::vec2 vel)
+dae::Bullet::Bullet(GameObject* ownerOfBullet, glm::vec2 pos, glm::vec2 vel)
 	:m_Vel{ vel }
 {
 	m_pBullet = std::make_shared<dae::GameObject>("Bullet");
@@ -20,7 +20,7 @@ dae::Bullet::Bullet(glm::vec2 pos, glm::vec2 vel)
 	m_pBullet->AddComponent(pCollider);
 
 	//BulletComponent
-	const auto& pBulletComponent = std::make_shared<dae::BulletComponent>(m_pBullet.get(), m_Vel, 1);
+	const auto& pBulletComponent = std::make_shared<dae::BulletComponent>(m_pBullet.get(), m_Vel, 1, ownerOfBullet);
 	m_pBullet->AddComponent(pBulletComponent);
 
 	//Pos

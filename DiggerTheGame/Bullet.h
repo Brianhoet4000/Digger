@@ -6,7 +6,7 @@ namespace dae
 	class Bullet final
 	{
 	public:
-		Bullet(glm::vec2 pos, glm::vec2 vel);
+		Bullet(GameObject* ownerOfBullet, glm::vec2 pos, glm::vec2 vel);
 		std::shared_ptr<dae::GameObject> ReturnBullet() { return m_pBullet; }
 
 		~Bullet() = default;

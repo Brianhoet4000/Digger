@@ -24,7 +24,6 @@ void dae::AIMovementComponent::Update(float deltaTime)
 		if (pPlayerCollision->GetIsVersus()) return;
 
 		pPlayerCollision->GetOwnerBaseComp()->getSub()->NotifyObservers(PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
-		//dae::ScreenManager::GetInstance().PlayerKilledResetLevelAndStats(pPlayerCollision);
 
 		return;
 	}
@@ -200,7 +199,7 @@ void dae::AIMovementComponent::GetClosestPlayer()
 	for (const auto& player : pPlayers)
 	{
 		if (player == nullptr) continue;
-		if(player->GetComponent<GameCollisionComponent>()->GetIsVersus()) continue;
+		if (player->GetComponent<GameCollisionComponent>()->GetIsVersus()) continue;
 
 		const float dist = glm::distance(player->GetRelativePosition(), GetOwnerBaseComp()->GetRelativePosition());
 		if (dist < closestdist)

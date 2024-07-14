@@ -447,7 +447,6 @@ namespace dae
                 //If Gold Broken and overlap pick up
                 if (goldState->GetCoinsBool())
                 {
-                    //ScreenManager::GetInstance().IncreasePoint(box->GetOwnerBaseComp(), 500);
                     sub.NotifyObservers(SCORE_ADDED_500, box->GetOwnerBaseComp());
 
                     RemoveGoldBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());

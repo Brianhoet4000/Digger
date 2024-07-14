@@ -103,7 +103,7 @@ void GameCommands::ShootingBullet::Execute(float)
         m_Dir = { 0,1 };
     }
 
-    auto bullet = std::make_shared<dae::Bullet>(m_pGameObject->GetRelativePosition(), m_Dir);
+    auto bullet = std::make_shared<dae::Bullet>(m_pGameObject.get(), m_pGameObject->GetRelativePosition(), m_Dir);
     m_pBulletTimer->SetHasShot(true);
     dae::SceneManager::GetInstance().GetActiveScene()->Add(bullet->ReturnBullet());
 

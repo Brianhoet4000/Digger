@@ -80,9 +80,6 @@
     <ClCompile Include="EnemySpawner.cpp">
       <Filter>Prefab</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerOne.cpp">
       <Filter>Prefab</Filter>
     </ClCompile>

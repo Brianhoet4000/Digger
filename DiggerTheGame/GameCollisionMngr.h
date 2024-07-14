@@ -9,7 +9,7 @@ namespace dae
 {
 	class GameObject;
 
-	class GameCollisionMngr : public dae::Singleton<GameCollisionMngr>
+	class GameCollisionMngr : public Singleton<GameCollisionMngr>
 	{
 	public:
 		GameCollisionMngr() = default;
@@ -57,7 +57,7 @@ namespace dae
 		bool CheckOverlapWithEnemies(const GameCollisionComponent* box) const;
 
 		void PlayerLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir, Subject& sub);
-		void NobbinLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir);
+		void NobbinLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir, Subject& sub);
 
 		bool Raycast(glm::vec2 startpos, glm::vec2 direction,const dae::GameCollisionComponent* box, bool checkDirt) const;
 

@@ -37,8 +37,6 @@ public:
     }
     std::vector<std::shared_ptr<dae::GameObject>> GetPlayers() { return m_Players; }
 
-    void ResetPlayerVars();
-
 private:
     PlayerManager() = default;
 

@@ -19,3 +19,5 @@ brian, 4900
 Testing, 2525
 bribri, 4250
 bribri, 5000
+bribri, 4575
+eeeeeee, 1150

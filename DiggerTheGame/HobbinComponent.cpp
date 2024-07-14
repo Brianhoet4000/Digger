@@ -19,8 +19,8 @@ void dae::HobbinComponent::Update(float deltaTime)
 		const auto& firstPlayer = dae::GameCollisionMngr::GetInstance().CheckOverlapWithFirstPlayer(GetOwnerBaseComp()->GetComponent<GameCollisionComponent>());
 		if (firstPlayer != nullptr)
 		{
-			dae::ScreenManager::GetInstance().PlayerKilledResetLevelAndStats(firstPlayer);
-			return;
+			firstPlayer->GetOwnerBaseComp()->getSub()->NotifyObservers(PLAYER_DIED, firstPlayer->GetOwnerBaseComp());
+			return; 
 		}
 	}
 

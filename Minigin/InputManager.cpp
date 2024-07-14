@@ -32,7 +32,6 @@ bool dae::InputManager::ProcessInput(float deltaTime)
     ProcessKeyboardInput(deltaTime);
     ProcessControllerInput(deltaTime);
 
-
 	return true;
 }
 

@@ -37,7 +37,6 @@ void Scene::RemoveAll()
 
 void Scene::Update(float deltaTime)
 {
-
 	for (auto& object : m_pObjects)
 	{
 		if (object.get() == nullptr) return;
@@ -47,7 +46,6 @@ void Scene::Update(float deltaTime)
 			Remove(object);
 			continue;
 		}
-		
 
 		object->Update(deltaTime);
 	}

@@ -255,7 +255,6 @@ namespace dae
 			}
 
 			const auto& pSpawner = std::make_shared<dae::EnemySpawner>(*dae::SceneManager::GetInstance().GetActiveScene(), pLevel->GetEnemySpawnPosition(), 3);
-			//const auto& pWinLose = std::make_shared<dae::ConditionSingleCoopComponent>(pLevel->returnLevelObj().get(), pSpawner->getSpawnObj());
 			const auto& pWinLose = std::make_shared<dae::ConditionComponent>(pLevel->returnLevelObj().get(), pSpawner->getSpawnObj());
 
 			auto gameObserver = std::make_shared<dae::GameObserver>();
@@ -432,32 +431,6 @@ namespace dae
 			pPlayerPoints2->SetRelativePosition(185, 430);
 			scene.Add(pPlayerPoints2);
 		}
-	}
-
-	void ScreenManager::IncreasePoint(GameObject* player, int points)
-	{
-		Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
-		if (player->GetTag() == "Player_01")
-		{
-			player->GetComponent<PointComponent>()->IncreaseAmount(points);
-			const auto& pointPlayerOnePoints = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerOnePoints");
-			pointPlayerOnePoints->GetComponent<TextComponent>()->SetText(std::to_string(player->GetComponent<PointComponent>()->GetAmount()));
-		}
-		else if (player->GetTag() == "Player_02")
-		{
-			player->GetComponent<PointComponent>()->IncreaseAmount(points);
-			const auto& pointPlayerTwoPoints = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerTwoPoints");
-			pointPlayerTwoPoints->GetComponent<TextComponent>()->SetText(std::to_string(player->GetComponent<PointComponent>()->GetAmount()));
-		}
-	}
-
-	void ScreenManager::PlayerKilledResetLevelAndStats(dae::GameCollisionComponent* ownerbox) const
-	{
-		ownerbox->GetOwnerBaseComp()->GetComponent<HealthComponent>()->DecreaseAmount(1);
-
-		dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
-		dae::GameCollisionMngr::GetInstance().ClearAll();
-		GetInstance().CreateGameScreen(*SceneManager::GetInstance().GetActiveScene());
 	}
 
 	GameObject* ScreenManager::GetGameObjectInScene(dae::Scene& scene, std::string tag)

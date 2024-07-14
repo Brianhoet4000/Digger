@@ -59,7 +59,7 @@ void GameCommands::DiggerMovement::Execute(float deltaTime)
         if (!dae::GameCollisionMngr::GetInstance().Raycast(m_pGameObject->GetRelativePosition(), m_Dir, m_pCollision, true))
             return;
 
-        dae::GameCollisionMngr::GetInstance().NobbinLogicBox(m_pGameObject->GetComponent<dae::GameCollisionComponent>(), m_Dir);
+        dae::GameCollisionMngr::GetInstance().NobbinLogicBox(m_pGameObject->GetComponent<dae::GameCollisionComponent>(), m_Dir, *m_psubJect);
     }
 
     pos.x += m_Dir.x * deltaTime;

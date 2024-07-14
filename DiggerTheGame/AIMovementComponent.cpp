@@ -23,7 +23,8 @@ void dae::AIMovementComponent::Update(float deltaTime)
 	{
 		if (pPlayerCollision->GetIsVersus()) return;
 
-		dae::ScreenManager::GetInstance().PlayerKilledResetLevelAndStats(pPlayerCollision);
+		pPlayerCollision->GetOwnerBaseComp()->getSub()->NotifyObservers(PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
+		//dae::ScreenManager::GetInstance().PlayerKilledResetLevelAndStats(pPlayerCollision);
 
 		return;
 	}

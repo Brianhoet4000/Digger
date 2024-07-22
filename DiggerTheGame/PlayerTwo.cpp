@@ -16,7 +16,7 @@ dae::PlayerTwo::PlayerTwo(dae::Scene& scene,  bool Coop)
 {
 	m_pPlayerTwo = std::make_shared<dae::GameObject>("Player_02");
 
-	auto psubject = new dae::Subject(m_pPlayerTwo.get());
+	auto psubject = new dae::Subject();
 
 	auto pgameObject = std::make_shared<dae::GameObserver>();
 	psubject->AddObserver(pgameObject);

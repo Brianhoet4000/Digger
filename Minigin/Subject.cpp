@@ -1,8 +1,7 @@
 #include "Subject.h"
 #include "Observer.h"
 
-dae::Subject::Subject(dae::GameObject* owner)
-	:m_pOwner(owner)
+dae::Subject::Subject()
 {
 }
 

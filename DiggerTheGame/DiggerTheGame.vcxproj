@@ -217,6 +217,7 @@ xcopy $(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\$(PlatformTarget)\*.dll $(Outp
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="GameCollisionComponent.h" />
     <ClInclude Include="GameCollisionMngr.h" />
+    <ClInclude Include="GetOverlappedPlayer.h" />
     <ClInclude Include="Gold.h" />
     <ClInclude Include="GoldStateComponent.h" />
     <ClInclude Include="HealthComponent.h" />

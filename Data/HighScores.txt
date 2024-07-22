@@ -23,3 +23,4 @@ bribri, 4575
 eeeeeee, 1150
 goat, 4300
 Steffi, 6125
+test, 6700

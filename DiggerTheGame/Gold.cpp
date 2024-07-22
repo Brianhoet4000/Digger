@@ -1,5 +1,6 @@
 #include "Gold.h"
 #include "GameCollisionComponent.h"
+#include "GetOverlappedPlayer.h"
 #include "GoldStateComponent.h"
 #include "TextureComponent.h"
 
@@ -20,6 +21,9 @@ dae::Gold::Gold(glm::vec2 pos)
 	//GoldLogic
 	const auto& pGoldStateCp = std::make_shared<GoldStateComponent>(m_pGold.get());
 	m_pGold->AddComponent(pGoldStateCp);
+
+	const auto& pOverlappedComponent = std::make_shared<GetOverlappedPlayer>(m_pGold.get());
+	m_pGold->AddComponent(pOverlappedComponent);
 
 	//Pos
 	m_pGold->SetRelativePosition({ pos });

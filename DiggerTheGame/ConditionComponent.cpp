@@ -8,7 +8,7 @@
 
 dae::ConditionComponent::ConditionComponent(GameObject* owner, std::shared_ptr<GameObject> spawner)
     : BaseComponent(owner)
-    , Subject(owner)
+    , Subject()
     , m_Finished{ false }
 {
     m_pSpawner = spawner;

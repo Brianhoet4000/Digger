@@ -28,6 +28,7 @@ namespace dae
 
 		MoneyBagState GetMoneyBagState() const { return m_MoneyState; }
 
+
 	private:
 		glm::vec2 m_Direction{ 0,5 };
 		const float m_Speed{ 55.f };

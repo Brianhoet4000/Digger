@@ -184,5 +184,8 @@
     <ClInclude Include="ConditionComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="GetOverlappedPlayer.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

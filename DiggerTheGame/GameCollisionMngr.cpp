@@ -1,5 +1,6 @@
 #include "GameCollisionMngr.h"
 #include "GameObject.h"
+#include "GetOverlappedPlayer.h"
 #include "GoldStateComponent.h"
 #include "HobbinComponent.h"
 #include "PlayerManager.h"
@@ -417,11 +418,8 @@ namespace dae
             //Overlap with emerald pick up
             if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Emerald")
             {
-                sub.NotifyObservers(SCORE_ADDED_25, box->GetOwnerBaseComp());
-
-                RemoveEmeraldBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
-                OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
-                dae::servicelocator::get_sound_system().playSound(1, m_Volume);
+                OverlappedBox->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
+                sub.NotifyObservers(EMERALD_PICKEDUP, OverlappedBox->GetOwnerBaseComp());
             }
 
             //Gold Related
@@ -447,11 +445,8 @@ namespace dae
                 //If Gold Broken and overlap pick up
                 if (goldState->GetCoinsBool())
                 {
-                    sub.NotifyObservers(SCORE_ADDED_500, box->GetOwnerBaseComp());
-
-                    RemoveGoldBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
-                    OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
-                    dae::servicelocator::get_sound_system().playSound(1, m_Volume);
+                    goldState->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
+                    sub.NotifyObservers(GOLD_PICKEDUP, goldState->GetOwnerBaseComp());
                 }
             }
         }
@@ -477,11 +472,8 @@ namespace dae
             //Overlap with emerald pick up
             if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Emerald")
             {
-                sub.NotifyObservers(SCORE_ADDED_25, box->GetOwnerBaseComp());
-
-                RemoveEmeraldBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
-                OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
-                dae::servicelocator::get_sound_system().playSound(1, m_Volume);
+                OverlappedBox->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
+                sub.NotifyObservers(EMERALD_PICKEDUP, OverlappedBox->GetOwnerBaseComp());
             }
 
             //Gold Nobbin
@@ -527,11 +519,8 @@ namespace dae
                     //If Gold Broken and overlap pick up
                     if (goldState->GetCoinsBool())
                     {
-                        sub.NotifyObservers(SCORE_ADDED_500, box->GetOwnerBaseComp());
-
-                        RemoveGoldBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
-                        OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
-                        dae::servicelocator::get_sound_system().playSound(1, m_Volume);
+                        goldState->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
+                        sub.NotifyObservers(GOLD_PICKEDUP, goldState->GetOwnerBaseComp());
                     }
                 }
             }

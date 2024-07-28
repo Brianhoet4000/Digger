@@ -4,7 +4,6 @@
 #include "ScreenManager.h"
 #include "GameCollisionMngr.h"
 #include "GetOverlappedPlayer.h"
-#include "GoldStateComponent.h"
 #include "HealthComponent.h"
 #include "PointComponent.h"
 #include "ServiceLocator.h"
@@ -52,6 +51,7 @@ namespace dae
 
             case Event::LEVEL_COMPLETED:
                 std::cout << "Level completed!\n";
+
                 dae::ScreenManager::GetInstance().ProceedNextLevel();
                 break;
 

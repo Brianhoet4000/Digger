@@ -7,8 +7,6 @@ dae::Emerald::Emerald(glm::vec2 pos)
 {
 	m_pEmerald = std::make_shared<dae::GameObject>("Emerald");
 
-	std::cout << "Add component to get player that overlapped\n";
-
 	//Texture
 	const auto& pTexture = std::make_shared<dae::TextureComponent>(m_pEmerald.get());
 	m_pEmerald->AddComponent(pTexture);

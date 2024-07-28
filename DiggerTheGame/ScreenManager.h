@@ -45,6 +45,7 @@ namespace dae
 
 		void SkipToGameOverLevel();
 		void ProceedNextLevel() const;
+		void LevelComplete() const;
 
 	private:
 		friend class Singleton<ScreenManager>;

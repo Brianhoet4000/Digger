@@ -3,6 +3,8 @@
 #include <glm/vec2.hpp>
 #include "GameObject.h"
 #include "Scene.h"
+#pragma warning(disable : 4996)
+#include <document.h>
 
 namespace dae
 {
@@ -35,6 +37,7 @@ namespace dae
 
 		std::shared_ptr<GameObject> m_pLevelObj;
 		std::vector <std::shared_ptr<dae::GameObject>> m_pBlocks;
+		std::pair<int, int> m_Grid;
 	};
 
 }

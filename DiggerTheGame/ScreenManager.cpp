@@ -192,7 +192,7 @@ namespace dae
 		if(m_CurrentLevel == 0)
 		{
 			//Level
-			const auto& pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_0.txt");
+			const auto& pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_0");
 
 			if (m_CurrentGameMode == GameMode::SinglePlayer)
 			{
@@ -270,7 +270,7 @@ namespace dae
 		if (m_CurrentLevel == 1)
 		{
 			//Level
-			const auto& pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_1.txt");
+			const auto& pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_1");
 
 			if (m_CurrentGameMode == GameMode::SinglePlayer)
 			{
@@ -322,7 +322,7 @@ namespace dae
 		if (m_CurrentLevel == 2)
 		{
 			//Level
-			const auto& pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_2.txt");
+			const auto& pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_2");
 
 			if (m_CurrentGameMode == GameMode::SinglePlayer)
 			{

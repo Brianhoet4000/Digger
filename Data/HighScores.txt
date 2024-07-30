@@ -25,3 +25,4 @@ goat, 4300
 Steffi, 6125
 test, 6700
 bribri, 5225
+bribri, 500

@@ -5,10 +5,12 @@
 
 namespace dae
 {
+	class GameObserver;
+
 	class PlayerOne final
 	{
 	public:
-		PlayerOne(dae::Scene& scene);
+		PlayerOne(dae::Scene& scene, std::shared_ptr<GameObserver> observer);
 
 		~PlayerOne() = default;
 		PlayerOne(const PlayerOne& other) = delete;

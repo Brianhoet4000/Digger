@@ -6,7 +6,9 @@
 #include "GetOverlappedPlayer.h"
 #include "HealthComponent.h"
 #include "PointComponent.h"
+#include "SceneManager.h"
 #include "ServiceLocator.h"
+#include "TextComponent.h"
 
 namespace dae
 {
@@ -43,10 +45,18 @@ namespace dae
 
                 gameObject->GetComponent<HealthComponent>()->DecreaseAmount(1);
 
+                if (gameObject->GetComponent<HealthComponent>()->GetAmount() <= -1)
+                {
+                    dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
+                    dae::SceneManager::GetInstance().SetActiveScene("GameOver");
+                    return;
+                }
+
                 dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
                 dae::GameCollisionMngr::GetInstance().ClearAll();
                 dae::ScreenManager::GetInstance().CreateGameScreen(*SceneManager::GetInstance().GetActiveScene());
                 std::cout << "Player has died.\n";
+
                 break;
 
             case Event::LEVEL_COMPLETED:

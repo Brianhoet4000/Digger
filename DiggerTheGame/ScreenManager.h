@@ -40,7 +40,7 @@ namespace dae
 		void CreateLevelZero(dae::Scene& scene);
 		void CreateLevelOne(dae::Scene& scene);
 		void CreateLevelTwo(dae::Scene& scene);
-		void CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players, bool SecondPlayer);
+		void CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players);
 		GameObject* GetGameObjectInScene(dae::Scene& scene, std::string tag);
 
 		void SkipToGameOverLevel();

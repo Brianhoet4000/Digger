@@ -16,16 +16,6 @@ dae::ConditionComponent::ConditionComponent(GameObject* owner, std::shared_ptr<G
 
 void dae::ConditionComponent::Update(float)
 {
-    for (const auto& player : PlayerManager::GetInstance().GetPlayers())
-    {
-        if (player->GetComponent<HealthComponent>()->GetAmount() <= -1)
-        {
-            NotifyObservers(Event::PLAYER_DIED, player.get());
-            dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
-            dae::SceneManager::GetInstance().SetActiveScene("GameOver");
-            return;
-        }
-    }
 
     if ((GameCollisionMngr::GetInstance().GetAllEmerald().empty() &&
         GameCollisionMngr::GetInstance().GetAllGold().empty()) ||

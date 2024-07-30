@@ -4,14 +4,14 @@
 
 namespace dae
 {
-
     class Command
     {
     public:
         virtual ~Command() = default;
-        virtual void Execute(float) = 0;
+        virtual void Execute(float deltaTime) = 0;
         void SetKeyPressed(bool keyPressed) { m_KeyPressed = keyPressed; }
         bool GetKeyPressed() const { return m_KeyPressed; }
+
     protected:
         std::shared_ptr<dae::GameObject> GetGameActor() const { return m_pGameObject; }
         std::shared_ptr<dae::GameObject> m_pGameObject{};

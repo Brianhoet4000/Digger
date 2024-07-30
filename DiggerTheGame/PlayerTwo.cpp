@@ -12,15 +12,12 @@
 #include "ResourceManager.h"
 #include "ShootingDirComponent.h"
 
-dae::PlayerTwo::PlayerTwo(dae::Scene& scene,  bool Coop)
+dae::PlayerTwo::PlayerTwo(dae::Scene& scene, std::shared_ptr<GameObserver> observer,  bool Coop)
 {
 	m_pPlayerTwo = std::make_shared<dae::GameObject>("Player_02");
 
 	auto psubject = new dae::Subject();
-
-	auto pgameObject = std::make_shared<dae::GameObserver>();
-	psubject->AddObserver(pgameObject);
-
+	psubject->AddObserver(observer);
 	m_pPlayerTwo->setSub(psubject);
 
 	std::shared_ptr<GameCommands::DiggerMovement> moveCommandUp;

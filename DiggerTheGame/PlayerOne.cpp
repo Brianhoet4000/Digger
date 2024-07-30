@@ -11,15 +11,12 @@
 #include "ResourceManager.h"
 #include "ShootingDirComponent.h"
 
-dae::PlayerOne::PlayerOne(dae::Scene& scene)
+dae::PlayerOne::PlayerOne(dae::Scene& scene, std::shared_ptr<GameObserver> observer)
 {
 	m_pPlayerOne = std::make_shared<dae::GameObject>("Player_01");
 
 	auto psubject = new dae::Subject();
-
-	auto pgameObject = std::make_shared<dae::GameObserver>();
-	psubject->AddObserver(pgameObject);
-
+	psubject->AddObserver(observer);
 	m_pPlayerOne->setSub(psubject);
 
 	//Texture

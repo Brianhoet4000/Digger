@@ -4,10 +4,13 @@
 
 namespace dae
 {
+
+	class GameObserver;
+
 	class PlayerTwo final
 	{
 	public:
-		PlayerTwo(dae::Scene& scene, bool Coop);
+		PlayerTwo(dae::Scene& scene, std::shared_ptr<GameObserver> observer, bool Coop);
 
 		~PlayerTwo() = default;
 		PlayerTwo(const PlayerTwo& other) = delete;

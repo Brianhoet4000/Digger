@@ -27,6 +27,18 @@ void SceneManager::FixedUpdate(float fixedTimeStep) const
 	}
 }
 
+void dae::SceneManager::UpdateCleanUp()
+{
+	for (auto& scene : m_pScenes)
+	{
+		if (!scene->IsActive())
+			continue;
+
+		scene->UpdateCleanUp();
+		return;
+	}
+}
+
 void SceneManager::Render() const
 {
 	for (const auto& scene : m_pScenes)

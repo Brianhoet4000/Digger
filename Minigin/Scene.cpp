@@ -66,6 +66,14 @@ void Scene::FixedUpdate(float deltaTime) const
 	}
 }
 
+void dae::Scene::UpdateCleanUp()
+{
+	m_pObjects.erase(std::remove_if(m_pObjects.begin(), m_pObjects.end(), [](const std::shared_ptr<GameObject>& pGameObject)
+		{
+			return pGameObject->ReturnDeleting();
+		}), m_pObjects.end());
+}
+
 void Scene::Render() const
 {
 	for (const auto& object : m_pObjects)

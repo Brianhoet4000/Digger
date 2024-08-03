@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 #include "SceneManager.h"
 
 
@@ -17,6 +18,7 @@ namespace dae
 
 		void Update(float deltaTime);
 		void FixedUpdate(float deltaTime) const;
+		void UpdateCleanUp();
 		void Render() const;
 
 		std::string GetName() const { return m_Name; }
@@ -24,6 +26,16 @@ namespace dae
 
 		void SetActive(bool isActive) { m_IsActive = isActive; }
 		bool IsActive() const { return m_IsActive; }
+		void MarkAllTrue()
+		{
+			for (const auto& element : m_pObjects)
+			{
+				if(element->GetTag() == "Player_01" || "Player_02")
+					continue;
+
+				element.get()->MarkTrueForDeleting();
+			}
+		}
 
 		~Scene();
 		Scene(const Scene& other) = delete;

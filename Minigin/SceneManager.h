@@ -14,6 +14,7 @@ namespace dae
 
 		void Update(float deltaTime) const;
 		void FixedUpdate(float fixedTimeStep) const;
+		void UpdateCleanUp();
 		void Render() const;
 
 		void NextScene();

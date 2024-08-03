@@ -420,6 +420,7 @@ namespace dae
             {
                 OverlappedBox->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
                 sub.NotifyObservers(EMERALD_PICKEDUP, OverlappedBox->GetOwnerBaseComp());
+                sub.NotifyObservers(LEVEL_COMPLETED);
             }
 
             //Gold Related
@@ -447,6 +448,7 @@ namespace dae
                 {
                     goldState->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
                     sub.NotifyObservers(GOLD_PICKEDUP, goldState->GetOwnerBaseComp());
+                    sub.NotifyObservers(LEVEL_COMPLETED);
                 }
             }
         }

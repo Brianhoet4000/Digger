@@ -33,11 +33,12 @@ namespace dae
         }
 
     public:
-        void Notify(Event event, GameObject* gameObject) override
+        void Notify(Event event, GameObject* gameObject = nullptr) override
         {
             switch (event)
             {
             case Event::SCORE_ADDED_250:
+
                 IncreasePoints(gameObject, 250);
                 break;
 
@@ -55,24 +56,29 @@ namespace dae
                 dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
                 dae::GameCollisionMngr::GetInstance().ClearAll();
                 dae::ScreenManager::GetInstance().CreateGameScreen(*SceneManager::GetInstance().GetActiveScene());
-                std::cout << "Player has died.\n";
 
                 break;
 
             case Event::LEVEL_COMPLETED:
-                std::cout << "Level completed!\n";
 
-                dae::ScreenManager::GetInstance().ProceedNextLevel();
+                if ((GameCollisionMngr::GetInstance().GetAllEmerald().empty() && GameCollisionMngr::GetInstance().GetAllGold().empty())
+                    || GameCollisionMngr::GetInstance().GetAllEnemies().empty())
+                {
+                    dae::ScreenManager::GetInstance().ProceedNextLevel();
+                }
                 break;
 
             case Event::GOLD_PICKEDUP:
+
                 dae::GameCollisionMngr::GetInstance().RemoveGoldBox(gameObject->GetComponent<dae::GameCollisionComponent>());
                 IncreasePoints(gameObject->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer(), 500);
+                gameObject->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer()->SetRelativePosition(10, 10);
                 gameObject->MarkTrueForDeleting();
                 dae::servicelocator::get_sound_system().playSound(1, 5);
                 break;
 
             case Event::EMERALD_PICKEDUP:
+
                 dae::GameCollisionMngr::GetInstance().RemoveEmeraldBox(gameObject->GetComponent<dae::GameCollisionComponent>());
                 IncreasePoints(gameObject->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer(), 25);
                 gameObject->MarkTrueForDeleting();

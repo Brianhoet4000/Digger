@@ -1,10 +1,6 @@
 #include "Subject.h"
 #include "Observer.h"
 
-dae::Subject::Subject()
-{
-}
-
 void dae::Subject::AddObserver(std::shared_ptr<Observer> observer)
 {
     m_pObservers.push_back(observer);

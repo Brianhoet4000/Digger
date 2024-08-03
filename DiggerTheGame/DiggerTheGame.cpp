@@ -35,21 +35,13 @@ void load()
 	startscene.SetActive(true);
 
 	dae::SceneManager::GetInstance().CreateScene("Game0");
-	
 
 	dae::SceneManager::GetInstance().CreateScene("Game1");
-	
 
 	dae::SceneManager::GetInstance().CreateScene("Game2");
-	
 
 	auto& sceneGameOver = dae::SceneManager::GetInstance().CreateScene("GameOver");
 	dae::ScreenManager::GetInstance().CreateGameOverScreen(sceneGameOver);
-	
-
-	//dae::ScreenManager::GetInstance().CreateGameScreen();
-	//const float scale{ 1.08f };
-	//SDL_RenderSetScale(dae::Renderer::GetInstance().GetSDLRenderer(), scale, scale);
 }
 
 int main(int, char* [])

@@ -11,7 +11,7 @@ namespace dae
 	class Subject
 	{
 	public:
-		Subject();
+		Subject() = default;
 		~Subject() = default;
 
 		void AddObserver(std::shared_ptr<Observer> observer);

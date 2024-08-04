@@ -7,7 +7,7 @@
 
 dae::EnemySpawner::EnemySpawner(dae::Scene& scene, glm::vec2 StartPos, int MaxEnemies)
 {
-	m_pSpawner = std::make_shared<dae::GameObject>();
+	m_pSpawner = std::make_shared<dae::GameObject>("Spawner");
 	m_pSpawner->SetRelativePosition(StartPos);
 
 	const auto& pTexture = std::make_shared<dae::TextureComponent>(m_pSpawner.get());

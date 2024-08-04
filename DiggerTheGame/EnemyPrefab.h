@@ -1,4 +1,5 @@
 #pragma once
+#include "EnemySpawner.h"
 #include "GameObject.h"
 #include "LevelPrefab.h"
 #include "Scene.h"
@@ -9,7 +10,7 @@ namespace dae
 	class EnemyPrefab final
 	{
 	public:
-		EnemyPrefab(dae::Scene& scene, glm::vec2 StartPos);
+		EnemyPrefab(GameObject* spawner, dae::Scene& scene, glm::vec2 StartPos);
 
 		~EnemyPrefab() = default;
 		EnemyPrefab(const EnemyPrefab& other) = delete;

@@ -8,6 +8,7 @@
 #include "PointComponent.h"
 #include "SceneManager.h"
 #include "ServiceLocator.h"
+#include "SpawnTimerComponent.h"
 #include "TextComponent.h"
 
 namespace dae
@@ -60,11 +61,18 @@ namespace dae
                 break;
 
             case Event::LEVEL_COMPLETED:
-
-                if ((GameCollisionMngr::GetInstance().GetAllEmerald().empty() && GameCollisionMngr::GetInstance().GetAllGold().empty()))
+                if (GameCollisionMngr::GetInstance().GetAllEmerald().size() <= 0 && GameCollisionMngr::GetInstance().GetAllGold().size() <= 0)
                 {
                     dae::ScreenManager::GetInstance().ProceedNextLevel();
                 }
+                break;
+
+            case Event::LEVEL_COMPLETED_ENEMIES:
+                if(gameObject->GetComponent<SpawnTimerComponent>()->RemainingNumberOfEnemies() <= 0 && GameCollisionMngr::GetInstance().GetAllEnemies().size() <= 1)
+                {
+                    dae::ScreenManager::GetInstance().ProceedNextLevel();
+                }
+
                 break;
 
             case Event::GOLD_PICKEDUP:

@@ -39,8 +39,11 @@ void dae::AIMovementComponent::Update(float deltaTime)
 			//If Gold not Broken and falls die
 			if (!goldState->GetCoinsBool() && goldState->GetMoneyBagState() == dae::GoldStateComponent::Falling)
 			{
-				GetOwnerBaseComp()->MarkTrueForDeleting();
+				PlayerManager::GetInstance().GetPlayers()[0]->getSub()
+					->NotifyObservers(LEVEL_COMPLETED_ENEMIES, 
+						m_pCollision->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
 				dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(m_pCollision);
+				GetOwnerBaseComp()->MarkTrueForDeleting();
 			}
 		}
 	}

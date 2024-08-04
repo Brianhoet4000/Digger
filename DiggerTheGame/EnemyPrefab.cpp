@@ -1,10 +1,11 @@
 #include "EnemyPrefab.h"
 #include "AIMovementComponent.h"
 #include "GameCollisionComponent.h"
+#include "GetOverlappedPlayer.h"
 #include "HobbinComponent.h"
 #include "TextureComponent.h"
 
-dae::EnemyPrefab::EnemyPrefab(dae::Scene& scene, glm::vec2 StartPos)
+dae::EnemyPrefab::EnemyPrefab(GameObject* spawner, dae::Scene& scene, glm::vec2 StartPos)
 {
 	m_pEnemy = std::make_shared<dae::GameObject>("Enemy");
 	m_pEnemy->SetRelativePosition(StartPos);
@@ -19,6 +20,10 @@ dae::EnemyPrefab::EnemyPrefab(dae::Scene& scene, glm::vec2 StartPos)
 	m_pEnemy->AddComponent(pCollider);
 	pCollider->SetCollisionRectOffset(0.2f);
 	pCollider->SetRenderCollisionBox(true);
+
+	const auto& pOverlappedComponent = std::make_shared<GetOverlappedPlayer>(m_pEnemy.get());
+	m_pEnemy->AddComponent(pOverlappedComponent);
+	pOverlappedComponent->SetPickedUpPlayer(spawner);
 
 	//Hobbin
 	const auto& hobbinComponent = std::make_shared<dae::HobbinComponent>(m_pEnemy.get());

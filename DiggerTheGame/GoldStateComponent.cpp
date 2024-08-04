@@ -95,7 +95,7 @@ void dae::GoldStateComponent::Update(float deltaTime)
 		}
 
 		//Falling
-		const glm::vec2 newPos = GetOwnerBaseComp()->GetRelativePosition();
+		const glm::vec2& newPos = GetOwnerBaseComp()->GetRelativePosition();
 		m_MoneyState = Falling;
 		GetOwnerBaseComp()->SetRelativePosition(newPos.x, newPos.y + m_Speed * deltaTime);
 	}

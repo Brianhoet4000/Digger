@@ -27,7 +27,7 @@ void dae::SpawnTimerComponent::Update(float deltaTime)
 
 		if(m_EnemyNumber == 0)
 		{
-			auto pTexture = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>();
+			const auto& pTexture = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>();
 			pTexture->SetMustRender(true);
 		}
 	}

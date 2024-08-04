@@ -25,7 +25,7 @@ dae::BulletComponent::BulletComponent(dae::GameObject* owner, glm::vec2 vel, int
 
 void dae::BulletComponent::Update(float deltaTime)
 {
-	const auto pColliderBullet = GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>();
+	const auto& pColliderBullet = GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>();
 
 	if ((dae::GameCollisionMngr::GetInstance().CheckForOverlapDirt(pColliderBullet) ||
 		dae::GameCollisionMngr::GetInstance().CheckForOverlapWall(pColliderBullet)) && m_Bounce < m_AmountOfBounce)
@@ -41,7 +41,7 @@ void dae::BulletComponent::Update(float deltaTime)
 	}
 
 	//If in versus mode
-	const auto secondPlayerEnemy = dae::GameCollisionMngr::GetInstance().CheckOverlapWithSecondPlayerVersus(pColliderBullet);
+	const auto& secondPlayerEnemy = dae::GameCollisionMngr::GetInstance().CheckOverlapWithSecondPlayerVersus(pColliderBullet);
 	if(secondPlayerEnemy != nullptr)
 	{
 		GetOwnerBaseComp()->MarkTrueForDeleting();
@@ -70,7 +70,7 @@ void dae::BulletComponent::Update(float deltaTime)
 		dae::GameCollisionMngr::GetInstance().RemoveBulletBox(pColliderBullet);
 	}
 
-	const auto newPos = GetOwnerBaseComp()->GetRelativePosition() + m_Vel * m_Speed * deltaTime;
+	const auto& newPos = GetOwnerBaseComp()->GetRelativePosition() + m_Vel * m_Speed * deltaTime;
 	GetOwnerBaseComp()->SetRelativePosition(newPos);
 
 }

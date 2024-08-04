@@ -14,7 +14,7 @@ void dae::BulletTimerComponent::Update(float deltaTime)
 {
 	if(m_HasShot)
 	{
-		auto pTex = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>();
+		const auto& pTex = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>();
 
 		m_CurrentTime -= 1 * deltaTime;
 

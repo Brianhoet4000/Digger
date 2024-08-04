@@ -16,7 +16,7 @@ dae::PlayerTwo::PlayerTwo(dae::Scene& scene, std::shared_ptr<GameObserver> obser
 {
 	m_pPlayerTwo = std::make_shared<dae::GameObject>("Player_02");
 
-	auto psubject = new dae::Subject();
+	const auto& psubject = new dae::Subject();
 	psubject->AddObserver(observer);
 	m_pPlayerTwo->setSub(psubject);
 

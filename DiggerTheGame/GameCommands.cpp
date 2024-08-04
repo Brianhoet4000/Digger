@@ -51,8 +51,6 @@ void GameCommands::DiggerMovement::Execute(float deltaTime)
         }
 
         dae::GameCollisionMngr::GetInstance().PlayerLogicBox(m_pGameObject->GetComponent<dae::GameCollisionComponent>(), m_Dir, *m_psubJect);
-
-        
     }
     else //Verus -> Nobbin
     {

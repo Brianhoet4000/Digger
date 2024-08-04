@@ -37,9 +37,7 @@ namespace dae
 		int GetCurrentLevel() { return m_CurrentLevel; }
 		void IncrementCurrentLevel() { ++m_CurrentLevel; }
 
-		void CreateLevelZero(dae::Scene& scene);
-		void CreateLevelOne(dae::Scene& scene);
-		void CreateLevelTwo(dae::Scene& scene);
+		void LevelCreator(dae::Scene& scene);
 		void CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players);
 		GameObject* GetGameObjectInScene(dae::Scene& scene, std::string tag);
 

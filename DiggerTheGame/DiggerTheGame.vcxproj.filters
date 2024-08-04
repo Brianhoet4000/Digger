@@ -98,9 +98,6 @@
     <ClCompile Include="HobbinState.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="ConditionComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerOne.h">
@@ -180,9 +177,6 @@
     </ClInclude>
     <ClInclude Include="HobbinState.h">
       <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="ConditionComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GetOverlappedPlayer.h">
       <Filter>Components</Filter>

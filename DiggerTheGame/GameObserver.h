@@ -61,8 +61,7 @@ namespace dae
 
             case Event::LEVEL_COMPLETED:
 
-                if ((GameCollisionMngr::GetInstance().GetAllEmerald().empty() && GameCollisionMngr::GetInstance().GetAllGold().empty())
-                    || GameCollisionMngr::GetInstance().GetAllEnemies().empty())
+                if ((GameCollisionMngr::GetInstance().GetAllEmerald().empty() && GameCollisionMngr::GetInstance().GetAllGold().empty()))
                 {
                     dae::ScreenManager::GetInstance().ProceedNextLevel();
                 }

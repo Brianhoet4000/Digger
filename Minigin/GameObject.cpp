@@ -10,7 +10,7 @@
 namespace dae
 {
 	GameObject::GameObject(const std::string& tag)
-		:m_TagString{ tag }
+		:m_TagString{ tag }, m_pSubject{ nullptr }
 	{
 	}
 

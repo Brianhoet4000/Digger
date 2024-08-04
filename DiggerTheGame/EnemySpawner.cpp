@@ -19,5 +19,5 @@ dae::EnemySpawner::EnemySpawner(dae::Scene& scene, glm::vec2 StartPos, int MaxEn
 	const auto& pTimer = std::make_shared<dae::SpawnTimerComponent>(&scene, m_pSpawner.get(), 7.f, MaxEnemies);
 	m_pSpawner->AddComponent(pTimer);
 
-	scene.Add(m_pSpawner);
+	//scene.Add(m_pSpawner);
 }

@@ -184,7 +184,6 @@ xcopy $(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\$(PlatformTarget)\*.dll $(Outp
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletComponent.cpp" />
     <ClCompile Include="BulletTimerComponent.cpp" />
-    <ClCompile Include="ConditionComponent.cpp" />
     <ClCompile Include="Emerald.cpp" />
     <ClCompile Include="EnemyPrefab.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
@@ -211,7 +210,6 @@ xcopy $(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\$(PlatformTarget)\*.dll $(Outp
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletComponent.h" />
     <ClInclude Include="BulletTimerComponent.h" />
-    <ClInclude Include="ConditionComponent.h" />
     <ClInclude Include="Emerald.h" />
     <ClInclude Include="EnemyPrefab.h" />
     <ClInclude Include="EnemySpawner.h" />

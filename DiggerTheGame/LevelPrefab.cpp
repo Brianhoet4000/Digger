@@ -9,6 +9,8 @@
 #include <fstream>
 #include <istreamwrapper.h>
 
+#include "LevelComponent.h"
+
 dae::LevelPrefab::LevelPrefab(dae::Scene& scene, const std::string& LevelPath)
 {
 	m_pLevelObj = std::make_shared<dae::GameObject>();
@@ -133,6 +135,7 @@ dae::LevelPrefab::LevelPrefab(dae::Scene& scene, const std::string& LevelPath)
 	AddBreakAbleBlocks(scene);
 	AddEmeralds(scene);
 	AddGold(scene);
+
 }
 
 void dae::LevelPrefab::AddBreakAbleBlocks(dae::Scene& scene)

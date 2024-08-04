@@ -27,3 +27,4 @@ test, 6700
 bribri, 5225
 bribri, 500
 dsa, 200
+bribri, 425

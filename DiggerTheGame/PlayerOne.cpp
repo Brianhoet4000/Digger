@@ -19,10 +19,6 @@ dae::PlayerOne::PlayerOne(dae::Scene& scene, std::shared_ptr<GameObserver> obser
 	const auto& pSubjectcomponent = std::make_shared<SubjectComponent>(m_pPlayerOne.get(), observer);
 	m_pPlayerOne->AddComponent(pSubjectcomponent);
 
-	//const auto& psubject = new dae::Subject();
-	//psubject->AddObserver(observer);
-	//m_pPlayerOne->setSub(psubject);
-
 	//Texture
 	const auto& pTexture = std::make_shared<dae::TextureComponent>(m_pPlayerOne.get());
 	pTexture->SetTexture("Sprites/Player.png");

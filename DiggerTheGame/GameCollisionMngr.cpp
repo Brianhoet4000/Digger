@@ -402,7 +402,7 @@ namespace dae
         return false;
     }
 
-    void GameCollisionMngr::PlayerLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir, Subject& sub)
+    void GameCollisionMngr::PlayerLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir)
     {
         const auto& OverlappedBox = CheckForCollisionComponent(box);
 
@@ -415,46 +415,30 @@ namespace dae
                 OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
             }
 
-            //Overlap with emerald pick up
-            if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Emerald")
-            {
-                OverlappedBox->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
-                sub.NotifyObservers(EMERALD_PICKEDUP, OverlappedBox->GetOwnerBaseComp());
-                sub.NotifyObservers(LEVEL_COMPLETED);
-            }
-
             //Gold Related
             if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Gold")
             {
                 const auto& goldState = OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GoldStateComponent>();
 
                 //Push Gold Left
-                if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling
+                if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling && !goldState->GetCoinsBool()
                     && dir.x > 0)
                 {
                     glm::vec2 newPos = { OverlappedBox->GetOwnerBaseComp()->GetRelativePosition().x + m_Dim, OverlappedBox->GetOwnerBaseComp()->GetRelativePosition().y };
                     OverlappedBox->GetOwnerBaseComp()->SetRelativePosition(newPos);
                 }
                 //Push Gold Right
-                else if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling
+                else if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling && !goldState->GetCoinsBool()
                     && dir.x < 0)
                 {
                     glm::vec2 newPos = { OverlappedBox->GetOwnerBaseComp()->GetRelativePosition().x - m_Dim * 2, OverlappedBox->GetOwnerBaseComp()->GetRelativePosition().y };
                     OverlappedBox->GetOwnerBaseComp()->SetRelativePosition(newPos);
                 }
-
-                //If Gold Broken and overlap pick up
-                if (goldState->GetCoinsBool())
-                {
-                    goldState->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
-                    sub.NotifyObservers(GOLD_PICKEDUP, goldState->GetOwnerBaseComp());
-                    sub.NotifyObservers(LEVEL_COMPLETED);
-                }
             }
         }
     }
 
-    void GameCollisionMngr::NobbinLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir, Subject& sub)
+    void GameCollisionMngr::NobbinLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir)
     {
         const auto& OverlappedBox = CheckForCollisionComponent(box);
 
@@ -471,12 +455,12 @@ namespace dae
                 }
             }
 
-            //Overlap with emerald pick up
-            if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Emerald")
-            {
-                OverlappedBox->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
-                sub.NotifyObservers(EMERALD_PICKEDUP, OverlappedBox->GetOwnerBaseComp());
-            }
+            ////Overlap with emerald pick up
+            //if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Emerald")
+            //{
+            //    OverlappedBox->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
+            //    sub.NotifyObservers(EMERALD_PICKEDUP, OverlappedBox->GetOwnerBaseComp());
+            //}
 
             //Gold Nobbin
             if (OverlappedBox != nullptr)
@@ -497,7 +481,7 @@ namespace dae
                         if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Break")
                         {
                             //Push Gold Left
-                            if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling && dir.x > 0)
+                            if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling && !goldState->GetCoinsBool() && dir.x > 0)
                             {
                                 OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
                                 RemoveDirtBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
@@ -507,7 +491,7 @@ namespace dae
 
                             }
                             //Push Gold Right
-                            else if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling && dir.x < 0)
+                            else if (goldState->GetMoneyBagState() != dae::GoldStateComponent::Falling && !goldState->GetCoinsBool() && dir.x < 0)
                             {
                                 OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
                                 RemoveDirtBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
@@ -518,12 +502,12 @@ namespace dae
                         }
                     }
 
-                    //If Gold Broken and overlap pick up
-                    if (goldState->GetCoinsBool())
-                    {
-                        goldState->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
-                        sub.NotifyObservers(GOLD_PICKEDUP, goldState->GetOwnerBaseComp());
-                    }
+                    ////If Gold Broken and overlap pick up
+                    //if (goldState->GetCoinsBool())
+                    //{
+                    //    goldState->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(box->GetOwnerBaseComp());
+                    //    sub.NotifyObservers(GOLD_PICKEDUP, goldState->GetOwnerBaseComp());
+                    //}
                 }
             }
         }

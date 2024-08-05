@@ -28,3 +28,4 @@ bribri, 5225
 bribri, 500
 dsa, 200
 bribri, 425
+bribri, 5500

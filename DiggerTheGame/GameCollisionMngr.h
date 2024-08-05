@@ -56,8 +56,8 @@ namespace dae
 		bool CheckForOverlapBrokenGold(const dae::GameCollisionComponent* box) const;
 		bool CheckOverlapWithEnemies(const GameCollisionComponent* box) const;
 
-		void PlayerLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir, Subject& sub);
-		void NobbinLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir, Subject& sub);
+		void PlayerLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir);
+		void NobbinLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir);
 
 		bool Raycast(glm::vec2 startpos, glm::vec2 direction,const dae::GameCollisionComponent* box, bool checkDirt) const;
 

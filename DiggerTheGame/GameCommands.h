@@ -13,7 +13,6 @@ namespace GameCommands
 	private:
 		glm::vec2 m_Dir{};
 		dae::GameCollisionComponent* m_pCollision;
-		dae::Subject* m_psubJect;
 		bool m_Digger;
 		bool m_DoOnce = false;
 	public:

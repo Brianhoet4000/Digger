@@ -2,6 +2,7 @@
 #include "GameCollisionComponent.h"
 #include "GetOverlappedPlayer.h"
 #include "GoldStateComponent.h"
+#include "PickUpComponent.h"
 #include "TextureComponent.h"
 
 dae::Gold::Gold(glm::vec2 pos)
@@ -24,6 +25,9 @@ dae::Gold::Gold(glm::vec2 pos)
 
 	const auto& pOverlappedComponent = std::make_shared<GetOverlappedPlayer>(m_pGold.get());
 	m_pGold->AddComponent(pOverlappedComponent);
+
+	const auto& pPickUpComponent = std::make_shared<PickUpComponent>(m_pGold.get());
+	m_pGold->AddComponent(pPickUpComponent);
 
 	//Pos
 	m_pGold->SetRelativePosition({ pos });

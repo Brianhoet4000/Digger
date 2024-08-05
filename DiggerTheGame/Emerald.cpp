@@ -1,6 +1,7 @@
 #include "Emerald.h"
 #include "GameCollisionComponent.h"
 #include "GetOverlappedPlayer.h"
+#include "PickUpComponent.h"
 #include "TextureComponent.h"
 
 dae::Emerald::Emerald(glm::vec2 pos)
@@ -19,6 +20,9 @@ dae::Emerald::Emerald(glm::vec2 pos)
 
 	const auto& pOverlappedComponent = std::make_shared<GetOverlappedPlayer>(m_pEmerald.get());
 	m_pEmerald->AddComponent(pOverlappedComponent);
+
+	const auto& pPickUpComponent = std::make_shared<PickUpComponent>(m_pEmerald.get());
+	m_pEmerald->AddComponent(pPickUpComponent);
 
 	//Pos
 	m_pEmerald->SetRelativePosition({ pos });

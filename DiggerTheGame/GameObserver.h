@@ -79,7 +79,6 @@ namespace dae
 
                 dae::GameCollisionMngr::GetInstance().RemoveGoldBox(gameObject->GetComponent<dae::GameCollisionComponent>());
                 IncreasePoints(gameObject->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer(), 500);
-                gameObject->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer()->SetRelativePosition(10, 10);
                 gameObject->MarkTrueForDeleting();
                 dae::servicelocator::get_sound_system().playSound(1, 5);
                 break;

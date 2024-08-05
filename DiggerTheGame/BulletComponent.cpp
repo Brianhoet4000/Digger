@@ -53,7 +53,7 @@ void dae::BulletComponent::Update(float deltaTime)
 		const auto& points = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerTwoPoints");
 		points->GetComponent<TextComponent>()->SetText(std::to_string(secondPlayerEnemy->GetOwnerBaseComp()->GetComponent<PointComponent>()->GetAmount()));
 
-		dae::ScreenManager::GetInstance().ProceedNextLevel();
+		//dae::ScreenManager::GetInstance().ProceedNextLevel();
 		return;
 	}
 

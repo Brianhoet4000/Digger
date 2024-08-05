@@ -29,3 +29,5 @@ bribri, 500
 dsa, 200
 bribri, 425
 bribri, 5500
+brirbirairi, 5525
+briantje, 5000

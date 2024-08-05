@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "ScreenManager.h"
 #include "PlayerManager.h"
+#include "SubjectComponent.h"
 
 dae::HobbinComponent::HobbinComponent(dae::GameObject* owner)
 	:BaseComponent(owner)
@@ -19,7 +20,7 @@ void dae::HobbinComponent::Update(float deltaTime)
 		const auto& firstPlayer = dae::GameCollisionMngr::GetInstance().CheckOverlapWithFirstPlayer(GetOwnerBaseComp()->GetComponent<GameCollisionComponent>());
 		if (firstPlayer != nullptr)
 		{
-			firstPlayer->GetOwnerBaseComp()->getSub()->NotifyObservers(PLAYER_DIED, firstPlayer->GetOwnerBaseComp());
+			firstPlayer->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(PLAYER_DIED, firstPlayer->GetOwnerBaseComp());
 			return; 
 		}
 	}

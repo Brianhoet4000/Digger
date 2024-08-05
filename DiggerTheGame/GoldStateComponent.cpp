@@ -6,6 +6,7 @@
 #include "PointComponent.h"
 #include "ScreenManager.h"
 #include "ServiceLocator.h"
+#include "SubjectComponent.h"
 #include "TextureComponent.h"
 
 dae::GoldStateComponent::GoldStateComponent(dae::GameObject* owner)
@@ -89,7 +90,7 @@ void dae::GoldStateComponent::Update(float deltaTime)
 			if (pPlayerCollision != nullptr)
 			{
 				GetOwnerBaseComp()->MarkTrueForDeleting();
-				pPlayerCollision->GetOwnerBaseComp()->getSub()->NotifyObservers(PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
+				pPlayerCollision->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
 				return;
 			}
 		}

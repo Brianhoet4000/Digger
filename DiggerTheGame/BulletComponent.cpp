@@ -1,14 +1,12 @@
 #include "BulletComponent.h"
-
 #include <memory>
 #include <glm/vec2.hpp>
-
 #include "GameCollisionMngr.h"
 #include "GameObject.h"
 #include "GetOverlappedPlayer.h"
-#include "HealthComponent.h"
 #include "PointComponent.h"
 #include "ScreenManager.h"
+#include "SubjectComponent.h"
 #include "TextureComponent.h"
 
 
@@ -47,7 +45,7 @@ void dae::BulletComponent::Update(float deltaTime)
 		GetOwnerBaseComp()->MarkTrueForDeleting();
 		dae::GameCollisionMngr::GetInstance().RemoveBulletBox(pColliderBullet);
 
-		secondPlayerEnemy->GetOwnerBaseComp()->getSub()->NotifyObservers(PLAYER_DIED, secondPlayerEnemy->GetOwnerBaseComp());
+		secondPlayerEnemy->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(PLAYER_DIED, secondPlayerEnemy->GetOwnerBaseComp());
 
 		const auto& scene = dae::SceneManager::GetInstance().GetActiveScene();
 		const auto& points = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerTwoPoints");
@@ -61,7 +59,7 @@ void dae::BulletComponent::Update(float deltaTime)
 	const auto& enemy = dae::GameCollisionMngr::GetInstance().CheckOverlapWithEnemiesComponent(pColliderBullet);
 	if (enemy != nullptr)
 	{
-		m_OwnerOfBullet->getSub()->NotifyObservers(LEVEL_COMPLETED_ENEMIES, enemy->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
+		m_OwnerOfBullet->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED_ENEMIES, enemy->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
 
 		enemy->GetOwnerBaseComp()->MarkTrueForDeleting();
 		dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(enemy->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());

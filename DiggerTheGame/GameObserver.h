@@ -54,9 +54,12 @@ namespace dae
                     return;
                 }
 
-                dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
-                dae::GameCollisionMngr::GetInstance().ClearAll();
-                dae::ScreenManager::GetInstance().CreateGameScreen(*SceneManager::GetInstance().GetActiveScene());
+                //if (!gameObject->GetComponent<GameCollisionComponent>()->GetIsVersus())
+                //{
+                    dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
+                    dae::GameCollisionMngr::GetInstance().ClearAll();
+                    dae::ScreenManager::GetInstance().CreateGameScreen(*SceneManager::GetInstance().GetActiveScene());
+                //}
 
                 break;
 

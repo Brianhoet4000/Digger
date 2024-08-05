@@ -10,14 +10,18 @@
 #include "PointComponent.h"
 #include "ResourceManager.h"
 #include "ShootingDirComponent.h"
+#include "SubjectComponent.h"
 
 dae::PlayerOne::PlayerOne(dae::Scene& scene, std::shared_ptr<GameObserver> observer)
 {
 	m_pPlayerOne = std::make_shared<dae::GameObject>("Player_01");
 
-	const auto& psubject = new dae::Subject();
-	psubject->AddObserver(observer);
-	m_pPlayerOne->setSub(psubject);
+	const auto& pSubjectcomponent = std::make_shared<SubjectComponent>(m_pPlayerOne.get(), observer);
+	m_pPlayerOne->AddComponent(pSubjectcomponent);
+
+	//const auto& psubject = new dae::Subject();
+	//psubject->AddObserver(observer);
+	//m_pPlayerOne->setSub(psubject);
 
 	//Texture
 	const auto& pTexture = std::make_shared<dae::TextureComponent>(m_pPlayerOne.get());

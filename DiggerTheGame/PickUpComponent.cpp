@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "GetOverlappedPlayer.h"
 #include "GoldStateComponent.h"
+#include "SubjectComponent.h"
 
 dae::PickUpComponent::PickUpComponent(dae::GameObject* owner)
 	:BaseComponent(owner)
@@ -20,10 +21,10 @@ void dae::PickUpComponent::Update(float)
     if (GetOwnerBaseComp()->GetTag() == "Emerald")
     {
         GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(playerOverlapped->GetOwnerBaseComp());
-        playerOverlapped->GetOwnerBaseComp()->getSub()->NotifyObservers(EMERALD_PICKEDUP, GetOwnerBaseComp());
+        playerOverlapped->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(EMERALD_PICKEDUP, GetOwnerBaseComp());
 
         if (!playerOverlapped->GetIsVersus())
-        playerOverlapped->GetOwnerBaseComp()->getSub()->NotifyObservers(LEVEL_COMPLETED);
+        playerOverlapped->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED);
     }
     //Overlap with Gold pick up
     else if (GetOwnerBaseComp()->GetTag() == "Gold")
@@ -31,10 +32,10 @@ void dae::PickUpComponent::Update(float)
         if (GetOwnerBaseComp()->GetComponent<GoldStateComponent>()->GetCoinsBool())
         {
             GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(playerOverlapped->GetOwnerBaseComp());
-            playerOverlapped->GetOwnerBaseComp()->getSub()->NotifyObservers(GOLD_PICKEDUP, GetOwnerBaseComp());
+            playerOverlapped->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(GOLD_PICKEDUP, GetOwnerBaseComp());
 
             if(!playerOverlapped->GetIsVersus())
-            playerOverlapped->GetOwnerBaseComp()->getSub()->NotifyObservers(LEVEL_COMPLETED);
+            playerOverlapped->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED);
         }
     }
 }

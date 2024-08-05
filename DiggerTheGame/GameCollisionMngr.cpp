@@ -471,12 +471,12 @@ namespace dae
 
                     if (OverlappedBox != nullptr)
                     {
-                        //If Gold not Broken and falls die
-                        if (!goldState->GetCoinsBool() && goldState->GetMoneyBagState() == dae::GoldStateComponent::Falling)
-                        {
-                            box->GetOwnerBaseComp()->MarkTrueForDeleting();
-                            RemoveCollisionBox(box);
-                        }
+                        ////If Gold not Broken and falls die
+                        //if (!goldState->GetCoinsBool() && goldState->GetMoneyBagState() == dae::GoldStateComponent::Falling)
+                        //{
+                        //    box->GetOwnerBaseComp()->MarkTrueForDeleting();
+                        //    RemoveCollisionBox(box);
+                        //} 
 
                         if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Break")
                         {
@@ -526,6 +526,7 @@ namespace dae
         // Check for collision with obstacles
         for (const auto& boxes : m_pWallBoxes)
         {
+            if(boxes == nullptr) return false;;
 
             if (startPos.x + (dir.x * distance + offset) <= boxes->GetCollisionRect().x + boxes->GetCollisionRect().w &&
                 startPos.x + dir.x * distance - offset >= boxes->GetCollisionRect().x &&

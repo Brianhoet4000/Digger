@@ -7,6 +7,7 @@
 #include "PlayerManager.h"
 #include "PointComponent.h"
 #include "ScreenManager.h"
+#include "SubjectComponent.h"
 
 dae::AIMovementComponent::AIMovementComponent(dae::GameObject* owner)
 	:BaseComponent(owner)
@@ -23,7 +24,7 @@ void dae::AIMovementComponent::Update(float deltaTime)
 	{
 		if (pPlayerCollision->GetIsVersus()) return;
 
-		pPlayerCollision->GetOwnerBaseComp()->getSub()->NotifyObservers(PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
+		pPlayerCollision->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
 
 		return;
 	}
@@ -39,7 +40,7 @@ void dae::AIMovementComponent::Update(float deltaTime)
 			//If Gold not Broken and falls die
 			if (!goldState->GetCoinsBool() && goldState->GetMoneyBagState() == dae::GoldStateComponent::Falling)
 			{
-				PlayerManager::GetInstance().GetPlayers()[0]->getSub()
+				PlayerManager::GetInstance().GetPlayers()[0]->GetComponent<SubjectComponent>()->GetSubject()
 					->NotifyObservers(LEVEL_COMPLETED_ENEMIES, 
 						m_pCollision->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
 				dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(m_pCollision);
@@ -202,7 +203,7 @@ void dae::AIMovementComponent::GetClosestPlayer()
 	for (const auto& player : pPlayers)
 	{
 		if (player == nullptr) continue;
-		if (player->GetComponent<GameCollisionComponent>()->GetIsVersus()) continue;
+		if (player->GetComponent<GameCollisionComponent>()->GetIsVersus()) return;;
 
 		const float dist = glm::distance(player->GetRelativePosition(), GetOwnerBaseComp()->GetRelativePosition());
 		if (dist < closestdist)

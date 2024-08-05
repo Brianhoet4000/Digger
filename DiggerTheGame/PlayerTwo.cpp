@@ -11,14 +11,14 @@
 #include "PointComponent.h"
 #include "ResourceManager.h"
 #include "ShootingDirComponent.h"
+#include "SubjectComponent.h"
 
 dae::PlayerTwo::PlayerTwo(dae::Scene& scene, std::shared_ptr<GameObserver> observer,  bool Coop)
 {
 	m_pPlayerTwo = std::make_shared<dae::GameObject>("Player_02");
 
-	const auto& psubject = new dae::Subject();
-	psubject->AddObserver(observer);
-	m_pPlayerTwo->setSub(psubject);
+	const auto& pSubjectcomponent = std::make_shared<SubjectComponent>(m_pPlayerTwo.get(), observer);
+	m_pPlayerTwo->AddComponent(pSubjectcomponent);
 
 	std::shared_ptr<GameCommands::DiggerMovement> moveCommandUp;
 	std::shared_ptr<GameCommands::DiggerMovement> moveCommandDown;

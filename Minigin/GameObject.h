@@ -73,11 +73,11 @@ namespace dae
 		std::vector<std::shared_ptr<BaseComponent>> GetAllComponents() { return m_pComponents; }
 		std::vector<std::shared_ptr<GameObject>> GetAllChildren() { return m_pChildren; }
 
-		void setSub(Subject* test) { m_pSubject = test; }
-		Subject* getSub() { return m_pSubject; }
+		//void setSub(Subject* test) { m_pSubject = test; }
+		//Subject* getSub() { return m_pSubject; }
 
 	protected:
-		Subject* m_pSubject;
+		//Subject* m_pSubject;
 
 	private:
 		glm::vec2 m_WorldTransform{};

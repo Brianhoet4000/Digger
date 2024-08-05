@@ -10,7 +10,7 @@
 namespace dae
 {
 	GameObject::GameObject(const std::string& tag)
-		:m_TagString{ tag }, m_pSubject{ nullptr }
+		:m_TagString{ tag }
 	{
 	}
 
@@ -23,9 +23,7 @@ namespace dae
 		for (const auto& pComponent : m_pComponents)
 		{
 			if (pComponent == nullptr)
-			{
 				continue;
-			}
 
 			pComponent->Update(deltaTime);
 		}

@@ -26,16 +26,18 @@ namespace dae
 
 		void SetActive(bool isActive) { m_IsActive = isActive; }
 		bool IsActive() const { return m_IsActive; }
-		void MarkAllTrue()
+		void MarkAllTrue() const
 		{
 			for (const auto& element : m_pObjects)
 			{
-				if(element->GetTag() == "Player_01" || "Player_02")
+				// Properly check if the tag is "Player_01" or "Player_02"
+				if (element->GetTag() == "Player_01" || element->GetTag() == "Player_02")
 					continue;
 
 				element.get()->MarkTrueForDeleting();
 			}
 		}
+
 
 		~Scene();
 		Scene(const Scene& other) = delete;

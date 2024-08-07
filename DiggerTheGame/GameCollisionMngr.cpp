@@ -408,13 +408,6 @@ namespace dae
 
         if (OverlappedBox != nullptr)
         {
-            //Dirt block delete
-            if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Break")
-            {
-                RemoveDirtBox(OverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
-                OverlappedBox->GetOwnerBaseComp()->MarkTrueForDeleting();
-            }
-
             ////Gold Related
             if (OverlappedBox->GetOwnerBaseComp()->GetTag() == "Gold")
             {

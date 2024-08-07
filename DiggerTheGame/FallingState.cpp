@@ -10,6 +10,12 @@ void dae::FallingState::Enter(dae::GoldStateComponent* component)
 
 void dae::FallingState::Update(dae::GoldStateComponent* component, float deltaTime)
 {
+	const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(component->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
+	if (pPlayerCollision != nullptr)
+	{
+		pPlayerCollision->GetOwnerBaseComp()->GetComponent<dae::SubjectComponent>()->GetSubject()->NotifyObservers(dae::PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
+		return;
+	}
 
 	if (!dae::GameCollisionMngr::GetInstance().Raycast(component->GetOwnerBaseComp()->GetRelativePosition(),
 		glm::vec2{ 0,5 }, component->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>(), true))
@@ -17,21 +23,15 @@ void dae::FallingState::Update(dae::GoldStateComponent* component, float deltaTi
 		if (component->GetOwnerBaseComp()->GetRelativePosition().y >= m_EstimatedPos.y - 2.f)
 		{
 			component->ChangeState(component->GetCoinState());
+			return;
 		}
 		else
 		{
 			component->ChangeState(component->GetIdleState());
+			return;
 		}
 
 	}
-	const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(component->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
-	if (pPlayerCollision != nullptr)
-	{
-		//component->GetOwnerBaseComp()->MarkTrueForDeleting();
-		pPlayerCollision->GetOwnerBaseComp()->GetComponent<dae::SubjectComponent>()->GetSubject()->NotifyObservers(dae::PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
-		return;
-	}
-
 	const glm::vec2& newPos = component->GetOwnerBaseComp()->GetRelativePosition();
 	component->GetOwnerBaseComp()->SetRelativePosition(newPos.x, newPos.y + m_Speed * deltaTime);
 }

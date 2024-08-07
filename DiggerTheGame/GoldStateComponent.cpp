@@ -1,29 +1,29 @@
 #include "GoldStateComponent.h"
-
 #include "CoinState.h"
-#include "CollisionBoxManager.h"
 #include "FallingState.h"
-#include "IdleState.h"
-#include "GameCollisionMngr.h"
-#include "GameObject.h"
-#include "HealthComponent.h"
 #include "HoverState.h"
 #include "IdleState.h"
-#include "PointComponent.h"
-#include "ScreenManager.h"
-#include "ServiceLocator.h"
-#include "SubjectComponent.h"
-#include "TextureComponent.h"
+#include "GameObject.h"
 
 dae::GoldStateComponent::GoldStateComponent(dae::GameObject* owner)
-	:BaseComponent(owner),
-	m_IdleState{new IdleState()},
-	m_HoverState{new HoverState()},
-	m_FallingState{new FallingState()},
-	m_CoinState{new CoinState()}
+	: BaseComponent(owner),
+	m_IdleState{ std::make_unique<IdleState>() },
+	m_HoverState{ std::make_unique<HoverState>() },
+	m_FallingState{ std::make_unique<FallingState>() },
+	m_CoinState{ std::make_unique<CoinState>() },
+	m_CurrentState{ m_IdleState.get() }
 {
-	m_CurrentState = m_IdleState;
 	m_CurrentState->Enter(this);
+}
+
+dae::GoldStateComponent::~GoldStateComponent()
+{
+	if (m_CurrentState != m_IdleState.get() && m_CurrentState != m_HoverState.get() &&
+		m_CurrentState != m_FallingState.get() && m_CurrentState != m_CoinState.get())
+	{
+		delete m_CurrentState;
+		m_CurrentState = nullptr;
+	}
 }
 
 void dae::GoldStateComponent::Update(float deltaTime)

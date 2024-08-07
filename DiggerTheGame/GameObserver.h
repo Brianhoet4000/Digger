@@ -57,6 +57,7 @@ namespace dae
                 //if (!gameObject->GetComponent<GameCollisionComponent>()->GetIsVersus())
                 //{
                     dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
+                    //dae::SceneManager::GetInstance().GetActiveScene()->MarkAllTrue();
                     dae::GameCollisionMngr::GetInstance().ClearAll();
                     dae::ScreenManager::GetInstance().CreateGameScreen(*SceneManager::GetInstance().GetActiveScene());
                 //}

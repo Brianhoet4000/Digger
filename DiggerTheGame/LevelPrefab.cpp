@@ -9,6 +9,8 @@
 #include <fstream>
 #include <istreamwrapper.h>
 
+#include "PickUpComponent.h"
+
 dae::LevelPrefab::LevelPrefab(dae::Scene& scene, const std::string& LevelPath)
 {
 	m_pLevelObj = std::make_shared<dae::GameObject>();
@@ -144,13 +146,16 @@ void dae::LevelPrefab::AddBreakAbleBlocks(dae::Scene& scene)
 		pBreakBlock->SetTag("Break");
 	
 		//Texture
-		auto pBreakTexture = std::make_shared<dae::TextureComponent>(pBreakBlock.get());
+		const auto& pBreakTexture = std::make_shared<dae::TextureComponent>(pBreakBlock.get());
 		pBreakBlock->AddComponent(pBreakTexture);
 		pBreakTexture->SetTexture("BreakableWall.png");
 	
 		//Collision
-		auto pBreakCollider = std::make_shared<dae::GameCollisionComponent>(pBreakBlock.get());
+		const auto& pBreakCollider = std::make_shared<dae::GameCollisionComponent>(pBreakBlock.get());
 		pBreakBlock->AddComponent(pBreakCollider);
+
+		const auto& pBreakPickUp = std::make_shared<dae::PickUpComponent>(pBreakBlock.get());
+		pBreakBlock->AddComponent(pBreakPickUp);
 	
 		//Pos
 		pBreakBlock->SetRelativePosition({ m_BlockPositions[i].x, m_BlockPositions[i].y }); // Position it above the path block

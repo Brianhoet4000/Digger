@@ -25,6 +25,7 @@ void dae::PickUpComponent::Update(float)
 
         if (!playerOverlapped->GetIsVersus())
         playerOverlapped->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED);
+        return;
     }
     //Overlap with Gold pick up
     else if (GetOwnerBaseComp()->GetTag() == "Gold")
@@ -37,5 +38,10 @@ void dae::PickUpComponent::Update(float)
             if(!playerOverlapped->GetIsVersus())
             playerOverlapped->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED);
         }
+    }
+    else if (GetOwnerBaseComp()->GetTag() == "Break")
+    {
+        GetOwnerBaseComp()->MarkTrueForDeleting();
+    	GameCollisionMngr::GetInstance().RemoveDirtBox(GetOwnerBaseComp()->GetComponent<GameCollisionComponent>());
     }
 }

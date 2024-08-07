@@ -17,6 +17,7 @@ void dae::CoinState::Update(dae::GoldStateComponent* component, float)
 		glm::vec2{ 0,5 }, component->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>(), true))
 	{
 		component->ChangeState(component->GetFallingState());
+		return;
 	}
 }
 

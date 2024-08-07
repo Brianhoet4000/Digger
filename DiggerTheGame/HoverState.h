@@ -7,7 +7,6 @@ namespace dae
 
     class HoverState : public dae::GoldState
     {
-        virtual ~HoverState() = default;
         virtual void Enter(dae::GoldStateComponent* component) override;
         virtual void Update(dae::GoldStateComponent* component, float deltaTime) override;
         virtual void Exit(dae::GoldStateComponent* component) override;

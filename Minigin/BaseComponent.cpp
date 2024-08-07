@@ -24,6 +24,5 @@ namespace dae
 
 	void BaseComponent::Render() const
 	{
-
 	}
 }

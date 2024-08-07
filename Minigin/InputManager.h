@@ -19,10 +19,11 @@ namespace dae
         void BindControllerToCommand(unsigned int controllerId, Controller::ControllerButton& button, std::shared_ptr<Command> command);
         void BindKeyToCommand(const Uint8& key, std::shared_ptr<Command> command);
         void UnBindKey(const std::shared_ptr<Command>& command);
+        void UnBindControllerCommand(const std::shared_ptr<Command>& command);
         void UnBindAllKeys();
-        void UpdateControllers();
-        
-
+        void UnBindAllControllerCommands();
+        void UnBindAllCommands();
+        void UpdateControllers() const;
 
     private:
         //Controller
@@ -36,11 +37,7 @@ namespace dae
         using KeyboardCommands = std::map<Uint8, std::shared_ptr<Command>>;
         KeyboardCommands m_KeyCommands;
 
-
-        void ProcessControllerInput(float deltaTime);
-        void ProcessKeyboardInput(float deltaTime);
-
-        
+        void ProcessControllerInput(float deltaTime) const;
+        void ProcessKeyboardInput(float deltaTime) const;
     };
-
 }

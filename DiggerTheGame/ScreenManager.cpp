@@ -218,21 +218,17 @@ namespace dae
 					m_AddedPlayers = true;
 				}
 			}
-
-
 			break;
 
 		case 1:
 
 			pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_1");
-
 			break;
 
 
 		case 2:
 
 			pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_2");
-
 			break;
 		}
 
@@ -252,6 +248,12 @@ namespace dae
 
 	void ScreenManager::CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players)
 	{
+		if (players.empty())
+		{
+			std::cerr << "vector of players is empty\n";
+			return;
+		}
+
 		//Player One
 		{
 			const auto& pGameObjLivesText = std::make_shared<dae::GameObject>();

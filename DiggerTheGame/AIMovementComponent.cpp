@@ -36,9 +36,9 @@ void dae::AIMovementComponent::Update(float deltaTime)
 		if (pOverlappedBox->GetOwnerBaseComp()->GetTag() == "Gold")
 		{
 			const auto& goldState = pOverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GoldStateComponent>();
-
+		
 			//If Gold not Broken and falls die
-			if (!goldState->GetCoinsBool() && goldState->GetMoneyBagState() == dae::GoldStateComponent::Falling)
+			if (!goldState->GetCoinsBool() && goldState->GetFallingState() == goldState->GetCurrentState())
 			{
 				PlayerManager::GetInstance().GetPlayers()[0]->GetComponent<SubjectComponent>()->GetSubject()
 					->NotifyObservers(LEVEL_COMPLETED_ENEMIES, 

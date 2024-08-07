@@ -1,8 +1,14 @@
 #include "GoldStateComponent.h"
+
+#include "CoinState.h"
 #include "CollisionBoxManager.h"
+#include "FallingState.h"
+#include "IdleState.h"
 #include "GameCollisionMngr.h"
 #include "GameObject.h"
 #include "HealthComponent.h"
+#include "HoverState.h"
+#include "IdleState.h"
 #include "PointComponent.h"
 #include "ScreenManager.h"
 #include "ServiceLocator.h"
@@ -10,106 +16,35 @@
 #include "TextureComponent.h"
 
 dae::GoldStateComponent::GoldStateComponent(dae::GameObject* owner)
-	:BaseComponent(owner)
+	:BaseComponent(owner),
+	m_IdleState{new IdleState()},
+	m_HoverState{new HoverState()},
+	m_FallingState{new FallingState()},
+	m_CoinState{new CoinState()}
 {
-	m_EstimatedPos = glm::vec2{ 0,0 };
-	m_Countdownvalue = m_Startvalue;
+	m_CurrentState = m_IdleState;
+	m_CurrentState->Enter(this);
 }
 
 void dae::GoldStateComponent::Update(float deltaTime)
 {
+	if (GetOwnerBaseComp()->ReturnDeleting()) return;
 	if (GetOwnerBaseComp() == nullptr) return;
 
-	if(!m_ResetEstimatedPos)
+	m_CurrentState->Update(this, deltaTime);
+}
+
+void dae::GoldStateComponent::ChangeState(GoldState* newState)
+{
+	if (m_CurrentState)
 	{
-		m_EstimatedPos = GetOwnerBaseComp()->GetRelativePosition() + glm::vec2{0, 48};
-		m_ResetEstimatedPos = true;
+		m_CurrentState->Exit(this);
 	}
 
-	if (!dae::GameCollisionMngr::GetInstance().Raycast(GetOwnerBaseComp()->GetRelativePosition(),
-		m_Direction, GetOwnerBaseComp()->GetComponent<GameCollisionComponent>(), true))
+	m_CurrentState = newState;
+
+	if (m_CurrentState)
 	{
-		if (GetOwnerBaseComp()->GetRelativePosition().y >= m_EstimatedPos.y - 2.f && !m_Broke && m_MoneyState == Full)
-		{
-			//Here Coins
-			const auto& texture = GetOwnerBaseComp()->GetComponent<dae::TextureComponent>();
-			texture->SetTexture("Sprites/Gold.png");
-			m_Broke = true;
-
-			m_TimerDone = true;
-			m_Countdownvalue = 0;
-
-			m_MoneyState = Coins;
-			dae::servicelocator::get_sound_system().playSound(2, 20);
-
-			return;
-		}
-		else if(m_MoneyState == Falling)
-		{
-			if(!m_Broke)
-				m_MoneyState = Full;
-
-			if(m_Broke)
-				m_MoneyState = Coins;
-
-			return;
-		}
-		else if (m_MoneyState == Full)
-		{
-			//Still MoneyBag
-			m_ResetEstimatedPos = false;
-			m_MoneyState = Full;
-
-			m_TimerDone = false;
-			m_Countdownvalue = m_Startvalue;
-			m_StartTimer = false;
-
-			return;
-		}
-		else if(m_MoneyState == Coins)
-		{
-			m_TimerDone = false;
-			return;
-		}
+		m_CurrentState->Enter(this);
 	}
-	else
-	{
-		m_StartTimer = true;
-
-		if (m_MoneyState == Coins)
-		{
-			m_TimerDone = true;
-		}
-	}
-
-	if (m_TimerDone)
-	{
-		if (!m_Broke)
-		{
-			const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
-			if (pPlayerCollision != nullptr)
-			{
-				GetOwnerBaseComp()->MarkTrueForDeleting();
-				pPlayerCollision->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
-				return;
-			}
-		}
-
-		//Falling
-		const glm::vec2& newPos = GetOwnerBaseComp()->GetRelativePosition();
-		m_MoneyState = Falling;
-		GetOwnerBaseComp()->SetRelativePosition(newPos.x, newPos.y + m_Speed * deltaTime);
-	}
-
-	if(m_StartTimer)
-	{
-		m_Countdownvalue -= 1 * deltaTime;
-
-		if(m_Countdownvalue <= 0)
-		{
-			m_TimerDone = true;
-		}
-	}
-
-	
 }

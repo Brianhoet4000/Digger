@@ -92,10 +92,10 @@
     <ClCompile Include="HighscoreComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="NobbinState.cpp">
+    <ClCompile Include="CoinState.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="HobbinState.cpp">
+    <ClCompile Include="IdleState.cpp">
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="PickUpComponent.cpp">
@@ -103,6 +103,12 @@
     </ClCompile>
     <ClCompile Include="SubjectComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FallingState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="HoverState.cpp">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,10 +184,10 @@
     <ClInclude Include="GameObserver.h">
       <Filter>Observers</Filter>
     </ClInclude>
-    <ClInclude Include="NobbinState.h">
+    <ClInclude Include="CoinState.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="HobbinState.h">
+    <ClInclude Include="IdleState.h">
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="GetOverlappedPlayer.h">
@@ -192,6 +198,15 @@
     </ClInclude>
     <ClInclude Include="SubjectComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FallingState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="GoldState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="HoverState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

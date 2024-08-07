@@ -38,7 +38,6 @@ namespace dae
 		}
 	}
 
-
 	void GameObject::FixedUpdate(float deltaTime)
 	{
 		for (const auto& pComponent : m_pComponents)

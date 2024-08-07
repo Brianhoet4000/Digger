@@ -1,20 +1,13 @@
 #pragma once
 #include <glm/vec2.hpp>
 #include "BaseComponent.h"
+#include "GoldState.h"
 
 namespace dae
 {
-
 	class GoldStateComponent : public dae::BaseComponent
 	{
 	public:
-		enum MoneyBagState
-		{
-			Full,
-			Coins,
-			Falling
-		};
-
 		GoldStateComponent(dae::GameObject* owner);
 
 		virtual ~GoldStateComponent() override = default;
@@ -25,24 +18,25 @@ namespace dae
 
 		void Update(float deltaTime) override;
 		bool GetCoinsBool() const { return m_Broke; }
+		void SetCoinsBool(bool broken) { m_Broke = broken; }
 
-		MoneyBagState GetMoneyBagState() const { return m_MoneyState; }
+		GoldState* GetCurrentState() const { return m_CurrentState; }
+		GoldState* GetIdleState() const { return m_IdleState; }
+		GoldState* GetHoverState() const { return m_HoverState; }
+		GoldState* GetFallingState() const { return m_FallingState; }
+		GoldState* GetCoinState() const { return m_CoinState; }
+
+		void ChangeState(GoldState* newState);
 
 
 	private:
-		glm::vec2 m_Direction{ 0,5 };
-		const float m_Speed{ 55.f };
-		glm::vec2 m_EstimatedPos;
-
-		bool m_ResetEstimatedPos = false;
 		bool m_Broke = false;
 
-		bool m_StartTimer = false;
-		bool m_TimerDone = false;
-		float m_Startvalue = 1.5f;
-		float m_Countdownvalue = 0.f;
-
-		MoneyBagState m_MoneyState{ Full };
+		GoldState* m_IdleState;
+		GoldState* m_HoverState;
+		GoldState* m_FallingState;
+		GoldState* m_CoinState;
+		GoldState* m_CurrentState;
 	};
 
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include "BaseComponent.h"
+
 namespace dae
 {
 	class State
@@ -6,8 +8,8 @@ namespace dae
 	public:
 		virtual ~State() = default;
 
-		virtual void OnEnter() = 0;
-		virtual void Update() = 0;
-		virtual void OnExit() = 0;
+		virtual void OnEnter(BaseComponent* component) = 0;
+		virtual void Update(BaseComponent* component, float deltaTime) = 0;
+		virtual void OnExit(BaseComponent* component) = 0;
 	};
 }

@@ -3,6 +3,7 @@
 #include "CollisionBoxManager.h"
 #include "GameCollisionMngr.h"
 #include "InputManager.h"
+#include "PlayerManager.h"
 #include "ServiceLocator.h"
 #include "ShootingDirComponent.h"
 
@@ -164,7 +165,7 @@ void GameCommands::SkipLevel::Execute(float)
 {
     if (GetKeyPressed()) return;
 
-    if(dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver" ||
+    if(dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver" || 
         dae::SceneManager::GetInstance().GetActiveSceneName() == "MainMenu")
     {
         SetKeyPressed(true);

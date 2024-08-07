@@ -1,38 +1,37 @@
 #include <SDL.h>
 #include "InputManager.h"
 #include <map>
-
 #include "ServiceLocator.h"
 
 namespace dae
 {
-	class Transform;
+    class Transform;
 }
 
 bool dae::InputManager::ProcessInput(float deltaTime)
 {
     SDL_Event e;
-   	while (SDL_PollEvent(&e)) 
+    while (SDL_PollEvent(&e))
     {
-        if (e.type == SDL_QUIT) 
+        if (e.type == SDL_QUIT)
         {
             return false;
         }
-        if (e.type == SDL_KEYDOWN) 
+        if (e.type == SDL_KEYDOWN)
         {
-            
+            // Handle keydown events
         }
-        if (e.type == SDL_MOUSEBUTTONDOWN) 
+        if (e.type == SDL_MOUSEBUTTONDOWN)
         {
+            // Handle mouse button events
         }
         // etc...
     }
 
-   
     ProcessKeyboardInput(deltaTime);
     ProcessControllerInput(deltaTime);
 
-	return true;
+    return true;
 }
 
 //Controller
@@ -47,14 +46,32 @@ void dae::InputManager::BindControllerToCommand(unsigned int id, Controller::Con
     m_Commands.insert({ key, std::shared_ptr<Command>(command) });
 }
 
-void dae::InputManager::UpdateControllers()
+void dae::InputManager::UnBindControllerCommand(const std::shared_ptr<Command>& command)
+{
+    for (auto it = m_Commands.begin(); it != m_Commands.end(); ++it)
+    {
+        if (it->second == command)
+        {
+            m_Commands.erase(it);
+            break;
+        }
+    }
+}
+
+void dae::InputManager::UnBindAllControllerCommands()
+{
+    m_Commands.clear();
+}
+
+void dae::InputManager::UpdateControllers() const
 {
     for (const auto& controller : m_Controllers)
     {
         controller->Update();
     }
 }
-void dae::InputManager::ProcessControllerInput(float deltaTime)
+
+void dae::InputManager::ProcessControllerInput(float deltaTime) const
 {
     for (const auto& controller : m_Controllers)
     {
@@ -97,7 +114,13 @@ void dae::InputManager::UnBindAllKeys()
     m_KeyCommands.clear();
 }
 
-void dae::InputManager::ProcessKeyboardInput(float deltaTime)
+void dae::InputManager::UnBindAllCommands()
+{
+    UnBindAllKeys();
+    UnBindAllControllerCommands();
+}
+
+void dae::InputManager::ProcessKeyboardInput(float deltaTime) const
 {
     const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 

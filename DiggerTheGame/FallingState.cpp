@@ -27,7 +27,7 @@ void dae::FallingState::Update(dae::GoldStateComponent* component, float deltaTi
 	const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(component->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
 	if (pPlayerCollision != nullptr)
 	{
-		component->GetOwnerBaseComp()->MarkTrueForDeleting();
+		//component->GetOwnerBaseComp()->MarkTrueForDeleting();
 		pPlayerCollision->GetOwnerBaseComp()->GetComponent<dae::SubjectComponent>()->GetSubject()->NotifyObservers(dae::PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
 		return;
 	}

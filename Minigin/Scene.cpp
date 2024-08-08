@@ -29,7 +29,6 @@ void Scene::Remove(const std::shared_ptr<GameObject>& object)
 	m_pObjects.erase(std::remove(m_pObjects.begin(), m_pObjects.end(), object), m_pObjects.end());
 }
 
-
 void Scene::RemoveAll()
 {
 	m_pObjects.clear();

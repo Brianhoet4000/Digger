@@ -46,12 +46,6 @@ void dae::BulletComponent::Update(float deltaTime)
 		dae::GameCollisionMngr::GetInstance().RemoveBulletBox(pColliderBullet);
 
 		secondPlayerEnemy->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(PLAYER_DIED, secondPlayerEnemy->GetOwnerBaseComp());
-
-		const auto& scene = dae::SceneManager::GetInstance().GetActiveScene();
-		const auto& points = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerTwoPoints");
-		points->GetComponent<TextComponent>()->SetText(std::to_string(secondPlayerEnemy->GetOwnerBaseComp()->GetComponent<PointComponent>()->GetAmount()));
-
-		//dae::ScreenManager::GetInstance().ProceedNextLevel();
 		return;
 	}
 

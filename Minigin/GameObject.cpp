@@ -204,9 +204,11 @@ namespace dae
 			if (pchild->ReturnDeleting())
 				return;
 
+			pchild->SetUpdate(false);
 			pchild->MarkTrueForDeleting();
 		}
 
+		SetUpdate(false);
 		m_DeleteParentFromScene = true;
 	}
 

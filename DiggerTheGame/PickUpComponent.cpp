@@ -16,6 +16,7 @@ void dae::PickUpComponent::Update(float)
 	const auto& playerOverlapped = GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(GetOwnerBaseComp()->GetComponent<GameCollisionComponent>());
 
 	if (playerOverlapped == nullptr) return;
+    if (playerOverlapped->GetIsVersus()) return;;
 
     //Overlap with Emerald pick up
     if (GetOwnerBaseComp()->GetTag() == "Emerald")

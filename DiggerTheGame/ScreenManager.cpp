@@ -1,5 +1,4 @@
 #include "ScreenManager.h"
-
 #include <memory>
 #include <SDL_scancode.h>
 #include <glm/vec2.hpp>
@@ -19,8 +18,6 @@
 #include "SoundSystem.h"
 #include "TextComponent.h"
 #include "TextureComponent.h"
-#include "PlayerOne.h"
-#include "PlayerTwo.h"
 #include "PointComponent.h"
 
 namespace dae
@@ -187,12 +184,12 @@ namespace dae
 
 	void ScreenManager::LevelCreator(dae::Scene& scene)
 	{
-		std::shared_ptr<LevelPrefab> pLevel;
+		//std::shared_ptr<LevelPrefab> m_LevelPrefab;
 
 		switch (m_CurrentLevel)
 		{
 		case 0:
-			pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_0");
+			m_LevelPrefab = std::make_shared<dae::LevelPrefab>(scene, "level_0");
 
 			if (m_CurrentGameMode == GameMode::SinglePlayer)
 			{
@@ -222,27 +219,28 @@ namespace dae
 
 		case 1:
 
-			pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_1");
+			m_LevelPrefab = std::make_shared<dae::LevelPrefab>(scene, "level_1");
 			break;
 
 
 		case 2:
 
-			pLevel = std::make_shared<dae::LevelPrefab>(scene, "level_2");
+			m_LevelPrefab = std::make_shared<dae::LevelPrefab>(scene, "level_2");
 			break;
 		}
 
 		for (int i = 0; i < static_cast<int>(PlayerManager::GetInstance().GetPlayers().size()); ++i)
 		{
 			dae::SceneManager::GetInstance().GetActiveScene()->Add(PlayerManager::GetInstance().GetPlayers()[i]);
-			PlayerManager::GetInstance().GetPlayers()[i]->SetRelativePosition(pLevel->GetSpawnPosition()[i]);
+			PlayerManager::GetInstance().GetPlayers()[i]->SetUpdate(true);
+			PlayerManager::GetInstance().GetPlayers()[i]->SetRelativePosition(m_LevelPrefab->GetSpawnPosition()[i]);
 		}
 
 
 		auto players = PlayerManager::GetInstance().GetPlayers();
 		CreateUI(scene, players);
 
-		const auto& pSpawner = std::make_shared<dae::EnemySpawner>(*dae::SceneManager::GetInstance().GetActiveScene(), pLevel->GetEnemySpawnPosition(), 3);
+		const auto& pSpawner = std::make_shared<dae::EnemySpawner>(*dae::SceneManager::GetInstance().GetActiveScene(), m_LevelPrefab->GetEnemySpawnPosition(), 3);
 		scene.Add(pSpawner->getSpawnObj());
 	}
 
@@ -269,7 +267,7 @@ namespace dae
 			scene.Add(pGameObjPointText);
 		}
 
-		const auto& pPlayerLives = std::make_shared<dae::GameObject>();
+		const auto& pPlayerLives = std::make_shared<dae::GameObject>("PlayerOneLives");
 		const auto& pPlayerLiveText = std::make_shared<dae::TextComponent>(std::to_string(players[0]->GetComponent<HealthComponent>()->GetAmount()),
 			m_pFont, pPlayerLives.get());
 		pPlayerLives->AddComponent(pPlayerLiveText);
@@ -301,7 +299,7 @@ namespace dae
 				scene.Add(pGameObjPointText);
 			}
 
-			const auto& pPlayerLives2 = std::make_shared<dae::GameObject>();
+			const auto& pPlayerLives2 = std::make_shared<dae::GameObject>("PlayerTwoLives");
 			const auto& pPlayerLiveText2 = std::make_shared<dae::TextComponent>(std::to_string(players[1]->GetComponent<HealthComponent>()->GetAmount()),
 				m_pFont, pPlayerLives2.get());
 			pPlayerLives2->AddComponent(pPlayerLiveText2);

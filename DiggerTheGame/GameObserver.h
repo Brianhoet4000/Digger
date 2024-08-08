@@ -1,6 +1,5 @@
 #pragma once
 #include "Observer.h"
-#include <iostream>
 #include "ScreenManager.h"
 #include "GameCollisionMngr.h"
 #include "GetOverlappedPlayer.h"
@@ -13,6 +12,7 @@
 
 namespace dae
 {
+
     class GameObserver : public Observer
     {
     private:
@@ -30,6 +30,20 @@ namespace dae
                 player->GetComponent<PointComponent>()->IncreaseAmount(points);
                 const auto& pointPlayerTwoPoints = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerTwoPoints");
                 pointPlayerTwoPoints->GetComponent<TextComponent>()->SetText(std::to_string(player->GetComponent<PointComponent>()->GetAmount()));
+            }
+        }
+        void ChangePoints(GameObject* player)
+        {
+            Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
+            if (player->GetTag() == "Player_01")
+            {
+                const auto& pointPlayerOnePoints = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerOneLives");
+                pointPlayerOnePoints->GetComponent<TextComponent>()->SetText(std::to_string(player->GetComponent<HealthComponent>()->GetAmount()));
+            }
+            else if (player->GetTag() == "Player_02")
+            {
+                const auto& pointPlayerTwoPoints = dae::ScreenManager::GetInstance().GetGameObjectInScene(*scene, "PlayerTwoLives");
+                pointPlayerTwoPoints->GetComponent<TextComponent>()->SetText(std::to_string(player->GetComponent<HealthComponent>()->GetAmount()));
             }
         }
 
@@ -54,13 +68,18 @@ namespace dae
                     return;
                 }
 
-                //if (!gameObject->GetComponent<GameCollisionComponent>()->GetIsVersus())
-                //{
+                if (!gameObject->GetComponent<GameCollisionComponent>()->GetIsVersus())
+                {
                     dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
                     //dae::SceneManager::GetInstance().GetActiveScene()->MarkAllTrue();
                     dae::GameCollisionMngr::GetInstance().ClearAll();
                     dae::ScreenManager::GetInstance().CreateGameScreen(*SceneManager::GetInstance().GetActiveScene());
-                //}
+                }
+                else
+                {
+                    gameObject->SetRelativePosition(ScreenManager::GetInstance().GetLevel()->GetSpawnPosition()[1]);
+                    ChangePoints(gameObject);
+                }
 
                 break;
 

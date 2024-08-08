@@ -40,6 +40,7 @@ namespace dae
 		void LevelCreator(dae::Scene& scene);
 		void CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players);
 		GameObject* GetGameObjectInScene(dae::Scene& scene, std::string tag);
+		std::shared_ptr<LevelPrefab> GetLevel() { return m_LevelPrefab; }
 
 		void SkipToGameOverLevel();
 		void ProceedNextLevel() const;
@@ -57,6 +58,7 @@ namespace dae
 		int m_CurrentLevel{ 0 };
 		bool m_AddedPlayers = false;
 		std::shared_ptr<Font> m_pFont;
+		std::shared_ptr<LevelPrefab> m_LevelPrefab;
 	};
 
 }

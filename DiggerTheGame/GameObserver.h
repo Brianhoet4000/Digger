@@ -32,7 +32,7 @@ namespace dae
                 pointPlayerTwoPoints->GetComponent<TextComponent>()->SetText(std::to_string(player->GetComponent<PointComponent>()->GetAmount()));
             }
         }
-        void ChangePoints(GameObject* player)
+        void ChangeLives(GameObject* player)
         {
             Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
             if (player->GetTag() == "Player_01")
@@ -70,15 +70,14 @@ namespace dae
 
                 if (!gameObject->GetComponent<GameCollisionComponent>()->GetIsVersus())
                 {
-                    dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
-                    //dae::SceneManager::GetInstance().GetActiveScene()->MarkAllTrue();
                     dae::GameCollisionMngr::GetInstance().ClearAll();
+                    dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
                     dae::ScreenManager::GetInstance().CreateGameScreen(*SceneManager::GetInstance().GetActiveScene());
                 }
                 else
                 {
                     gameObject->SetRelativePosition(ScreenManager::GetInstance().GetLevel()->GetSpawnPosition()[1]);
-                    ChangePoints(gameObject);
+                    ChangeLives(gameObject);
                 }
 
                 break;

@@ -33,3 +33,4 @@ brirbirairi, 5525
 briantje, 5000
 bro, 4900
 bribri, 25
+testinggame, 6000

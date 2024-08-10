@@ -6,6 +6,7 @@
 #include "PlayerManager.h"
 #include "ServiceLocator.h"
 #include "ShootingDirComponent.h"
+#include "TextureTransformComponent.h"
 
 GameCommands::DiggerMovement::DiggerMovement(std::shared_ptr<dae::GameObject> owner, const glm::vec2& dir, bool digger)
 {
@@ -28,7 +29,7 @@ void GameCommands::DiggerMovement::Execute(float deltaTime)
     {
         //ShootingDir
         {
-            auto shootingstate = m_pGameObject->GetComponent<dae::ShootingDirComponent>();
+            const auto& shootingstate = m_pGameObject->GetComponent<dae::ShootingDirComponent>();
 
             if (shootingstate == nullptr) return;
 

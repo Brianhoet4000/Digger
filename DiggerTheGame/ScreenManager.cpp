@@ -184,8 +184,6 @@ namespace dae
 
 	void ScreenManager::LevelCreator(dae::Scene& scene)
 	{
-		//std::shared_ptr<LevelPrefab> m_LevelPrefab;
-
 		switch (m_CurrentLevel)
 		{
 		case 0:

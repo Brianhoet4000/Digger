@@ -35,17 +35,21 @@ dae::PlayerTwo::PlayerTwo(dae::Scene& scene, std::shared_ptr<GameObserver> obser
 		//Texture Coop
 		const auto& pTexture = std::make_shared<dae::TextureComponent>(m_pPlayerTwo.get());
 		pTexture->SetTexture("Sprites/Player1.png");
+		pTexture->SetMustRender(false);
 		m_pPlayerTwo->AddComponent(pTexture);
 
 		//Collision
 		const auto& pCollider = std::make_shared<dae::GameCollisionComponent>(m_pPlayerTwo.get());
 		pCollider->SetCollisionRectOffset(5.f);
-		pCollider->SetRenderCollisionBox(true);
 		m_pPlayerTwo->AddComponent(pCollider);
 
 		//BulletTimer
 		const auto& pTimer = std::make_shared<dae::BulletTimerComponent>(m_pPlayerTwo.get());
 		m_pPlayerTwo->AddComponent(pTimer);
+
+		//Rotating player Texture
+		const auto& pTransform = std::make_shared<TextureTransformComponent>(m_pPlayerTwo.get());
+		m_pPlayerTwo->AddComponent(pTransform);
 
 		//ShootingDir
 		const auto& pShootingDir = std::make_shared<ShootingDirComponent>(m_pPlayerTwo.get());

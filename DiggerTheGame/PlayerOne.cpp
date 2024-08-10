@@ -11,6 +11,7 @@
 #include "ResourceManager.h"
 #include "ShootingDirComponent.h"
 #include "SubjectComponent.h"
+#include "TextureTransformComponent.h"
 
 dae::PlayerOne::PlayerOne(dae::Scene& scene, std::shared_ptr<GameObserver> observer)
 {
@@ -22,6 +23,7 @@ dae::PlayerOne::PlayerOne(dae::Scene& scene, std::shared_ptr<GameObserver> obser
 	//Texture
 	const auto& pTexture = std::make_shared<dae::TextureComponent>(m_pPlayerOne.get());
 	pTexture->SetTexture("Sprites/Player.png");
+	pTexture->SetMustRender(false);
 	m_pPlayerOne->AddComponent(pTexture);
 
 	//Collision
@@ -33,6 +35,10 @@ dae::PlayerOne::PlayerOne(dae::Scene& scene, std::shared_ptr<GameObserver> obser
 	//BulletTimer
 	const auto& pTimer = std::make_shared<dae::BulletTimerComponent>(m_pPlayerOne.get());
 	m_pPlayerOne->AddComponent(pTimer);
+
+	//Rotating player Texture
+	const auto& pTransform = std::make_shared<TextureTransformComponent>(m_pPlayerOne.get());
+	m_pPlayerOne->AddComponent(pTransform);
 
 	//ShootingDir
 	const auto& pShootingDir = std::make_shared<ShootingDirComponent>(m_pPlayerOne.get());
@@ -78,6 +84,4 @@ dae::PlayerOne::PlayerOne(dae::Scene& scene, std::shared_ptr<GameObserver> obser
 	m_pPlayerOne->AddComponent(pPoints);
 
 	scene.Add(m_pPlayerOne);
-
-	//psubject->NotifyObservers(LEVEL_COMPLETED, m_pPlayerOne.get())
 }

@@ -16,6 +16,7 @@ namespace dae
 		virtual void Render() const override;
 
 		void SetTexture(const std::string& filename);
+		std::shared_ptr<dae::Texture2D> GetTexture() const { return m_Texture; }
 
 		TextureComponent(GameObject* owner);
 		virtual ~TextureComponent() = default;

@@ -110,6 +110,9 @@
     <ClCompile Include="HoverState.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="TextureTransformComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerOne.h">
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="HoverState.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureTransformComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

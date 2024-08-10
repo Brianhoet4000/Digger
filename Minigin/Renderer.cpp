@@ -53,23 +53,60 @@ void dae::Renderer::Destroy()
 	}
 }
 
+// Overload for rendering without rotation and flipping
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {
-	SDL_Rect dst{};
-	dst.x = static_cast<int>(x);
-	dst.y = static_cast<int>(y);
-	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
-	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+    SDL_Rect dst{};
+    dst.x = static_cast<int>(x);
+    dst.y = static_cast<int>(y);
+    SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
+    SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
+// Overload for rendering with scaling but without rotation and flipping
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
 {
-	SDL_Rect dst{};
-	dst.x = static_cast<int>(x);
-	dst.y = static_cast<int>(y);
-	dst.w = static_cast<int>(width);
-	dst.h = static_cast<int>(height);
-	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+    SDL_Rect dst{};
+    dst.x = static_cast<int>(x);
+    dst.y = static_cast<int>(y);
+    dst.w = static_cast<int>(width);
+    dst.h = static_cast<int>(height);
+    SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
+
+// Overload for rendering with rotation and flipping (new method)
+void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float rotation, const bool flipX, const bool flipY) const
+{
+    SDL_Rect dst{};
+    dst.x = static_cast<int>(x);
+    dst.y = static_cast<int>(y);
+    SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
+
+    SDL_Point center = { dst.w / 2, dst.h / 2 };
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
+    if (flipX) flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_HORIZONTAL);
+    if (flipY) flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
+
+    SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst, rotation, &center, flip);
+}
+
+// Overload for rendering with scaling, rotation, and flipping
+void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const float rotation, const bool flipX, const bool flipY) const
+{
+    SDL_Rect dst{};
+    dst.x = static_cast<int>(x);
+    dst.y = static_cast<int>(y);
+    dst.w = static_cast<int>(width);
+    dst.h = static_cast<int>(height);
+
+    SDL_Point center = { dst.w / 2, dst.h / 2 };
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
+    if (flipX) flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_HORIZONTAL);
+    if (flipY) flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
+
+    SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst, rotation, &center, flip);
+}
+
+
 
 inline SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }

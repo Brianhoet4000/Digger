@@ -16,12 +16,14 @@ namespace dae
 
 	void GameObject::Update(float deltaTime) const
 	{
+		if(this == nullptr) return;
 		if (ReturnDeleting()) return;
 		if (!m_Update) return;
 
 		// Update all components
 		for (const auto& pComponent : m_pComponents)
 		{
+			if(m_pComponents.empty()) return;
 			if (pComponent == nullptr)
 				continue;
 
@@ -31,6 +33,7 @@ namespace dae
 		// Update all children
 		for (const auto& pChild : m_pChildren)
 		{
+			if (m_pComponents.empty()) return;
 			if (pChild == nullptr)
 				continue;
 

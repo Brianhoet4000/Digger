@@ -13,7 +13,6 @@ void dae::HoverState::Update(dae::GoldStateComponent* component, float deltaTime
 	if(m_Countdownvalue <= 0)
 	{
 		component->ChangeState(component->GetFallingState());
-		return;
 	}
 }
 

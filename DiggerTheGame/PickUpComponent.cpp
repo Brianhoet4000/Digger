@@ -16,7 +16,7 @@ void dae::PickUpComponent::Update(float)
 	const auto& playerOverlapped = GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(GetOwnerBaseComp()->GetComponent<GameCollisionComponent>());
 
 	if (playerOverlapped == nullptr) return;
-    if (playerOverlapped->GetIsVersus()) return;;
+    if (playerOverlapped->GetIsVersus()) return;
 
     //Overlap with Emerald pick up
     if (GetOwnerBaseComp()->GetTag() == "Emerald")
@@ -42,7 +42,7 @@ void dae::PickUpComponent::Update(float)
     }
     else if (GetOwnerBaseComp()->GetTag() == "Break")
     {
+        GameCollisionMngr::GetInstance().RemoveDirtBox(GetOwnerBaseComp()->GetComponent<GameCollisionComponent>());
         GetOwnerBaseComp()->MarkTrueForDeleting();
-    	GameCollisionMngr::GetInstance().RemoveDirtBox(GetOwnerBaseComp()->GetComponent<GameCollisionComponent>());
     }
 }

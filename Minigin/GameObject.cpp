@@ -31,6 +31,7 @@ namespace dae
 		// Update all children
 		for (const auto& pChild : m_pChildren)
 		{
+			if (m_pChildren.size() > 15) return;
 			if (pChild == nullptr)
 				continue;
 

@@ -11,7 +11,7 @@ void dae::FallingState::Enter(dae::GoldStateComponent* component)
 void dae::FallingState::Update(dae::GoldStateComponent* component, float deltaTime)
 {
 	const auto& pPlayerCollision = dae::GameCollisionMngr::GetInstance().CheckOverlapWithPlayers(component->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
-	if (pPlayerCollision != nullptr)
+	if (pPlayerCollision != nullptr && !component->GetCoinsBool())
 	{
 		pPlayerCollision->GetOwnerBaseComp()->GetComponent<dae::SubjectComponent>()->GetSubject()->NotifyObservers(dae::PLAYER_DIED, pPlayerCollision->GetOwnerBaseComp());
 		return;

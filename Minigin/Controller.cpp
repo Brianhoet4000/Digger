@@ -20,10 +20,12 @@ public:
         ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
         XInputGetState(m_ControllerIndex, &m_CurrentState);
 
-        m_ButtonsPressedThisFrame = m_CurrentState.Gamepad.wButtons & ~m_PreviousState.Gamepad.wButtons;
+        auto buttonChanges = m_CurrentState.Gamepad.wButtons ^ m_PreviousState.Gamepad.wButtons;
+        m_ButtonsPressedThisFrame = buttonChanges & m_CurrentState.Gamepad.wButtons;
+        m_ButtonsReleasedFrame = buttonChanges & (~m_CurrentState.Gamepad.wButtons);
     }
     bool IsButtonDown(unsigned int button) const { return m_ButtonsPressedThisFrame & button; }
-    bool IsUpThisFrame(unsigned int button) const { return m_ButtonsPressedThisFrame & button; }
+    bool IsUpThisFrame(unsigned int button) const { return m_ButtonsReleasedFrame & button; }
     bool IsPressed(unsigned int button) const { return m_CurrentState.Gamepad.wButtons & button; }
     unsigned int GetIDOfController() const { return m_ControllerIndex; }
 

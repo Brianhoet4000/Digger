@@ -40,10 +40,22 @@ void dae::InputManager::AddController(unsigned int id)
     m_Controllers.emplace_back(std::make_unique<Controller>(id));
 }
 
-void dae::InputManager::BindControllerToCommand(unsigned int id, Controller::ControllerButton& button, std::shared_ptr<Command> command)
+void dae::InputManager::BindControllerToCommand(unsigned int id, Controller::ControllerButton& button, std::shared_ptr<Command> command, bool overwrite)
 {
     ControllerKey key = ControllerKey(id, button);
-    m_Commands.insert({ key, std::shared_ptr<Command>(command) });
+
+    auto it = m_Commands.find(key);
+    if (it != m_Commands.end())
+    {
+        if (overwrite)
+        {
+            it->second = command;  // Overwrite the existing command
+        }
+    }
+    else
+    {
+        m_Commands.insert({ key, command });  // Add the new command if not found
+    }
 }
 
 void dae::InputManager::UnBindControllerCommand(const std::shared_ptr<Command>& command)

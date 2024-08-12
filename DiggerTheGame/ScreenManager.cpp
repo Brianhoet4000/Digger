@@ -89,6 +89,14 @@ namespace dae
 		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_F1, SkipLevel);
 		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_R, ResetLevel);
 
+		/*const int controller1Index{ 0 };
+		dae::InputManager::GetInstance().AddController(controller1Index);
+		dae::Controller::ControllerButton controllerButton = dae::Controller::ControllerButton::ButtonY;
+		dae::InputManager::GetInstance().BindControllerToCommand(controller1Index, controllerButton, SkipLevel);
+		controllerButton = dae::Controller::ControllerButton::ButtonX;
+		dae::InputManager::GetInstance().BindControllerToCommand(controller1Index, controllerButton, ResetLevel);*/
+
+
 		dae::servicelocator::register_sound_system(std::make_unique<dae::SoundSystem>());
 		dae::servicelocator::get_sound_system().Load(0, "GamePlaySound.wav");
 		dae::servicelocator::get_sound_system().Load(1, "PickupSound.wav");

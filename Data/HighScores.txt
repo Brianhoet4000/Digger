@@ -17,3 +17,6 @@ bribri, 5500
 brirbirairi, 5525
 briantje, 5000
 bribri, 150
+brian, 1800
+brian, 200
+broanm, 400

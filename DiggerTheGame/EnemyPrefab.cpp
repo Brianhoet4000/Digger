@@ -19,7 +19,7 @@ dae::EnemyPrefab::EnemyPrefab(GameObject* spawner, dae::Scene& scene, glm::vec2 
 	const auto& pCollider = std::make_shared<dae::GameCollisionComponent>(m_pEnemy.get());
 	m_pEnemy->AddComponent(pCollider);
 	pCollider->SetCollisionRectOffset(0.2f);
-	pCollider->SetRenderCollisionBox(true);
+	pCollider->SetRenderCollisionBox(false);
 
 	const auto& pOverlappedComponent = std::make_shared<GetOverlappedPlayer>(m_pEnemy.get());
 	m_pEnemy->AddComponent(pOverlappedComponent);

@@ -13,7 +13,6 @@ namespace dae
         bool GetKeyPressed() const { return m_KeyPressed; }
 
     protected:
-        std::shared_ptr<dae::GameObject> GetGameActor() const { return m_pGameObject; }
         std::shared_ptr<dae::GameObject> m_pGameObject{};
         bool m_KeyPressed = false;
     };

@@ -54,7 +54,7 @@ void dae::BulletComponent::Update(float deltaTime)
 	if (enemy != nullptr)
 	{
 		m_OwnerOfBullet->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(SCORE_ADDED_250, m_OwnerOfBullet);
-		m_OwnerOfBullet->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED_ENEMIES, enemy->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
+		m_OwnerOfBullet->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED, enemy->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
 
 		enemy->GetOwnerBaseComp()->MarkTrueForDeleting();
 		dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(enemy->GetOwnerBaseComp()->GetComponent<dae::GameCollisionComponent>());
@@ -65,5 +65,4 @@ void dae::BulletComponent::Update(float deltaTime)
 
 	const auto& newPos = GetOwnerBaseComp()->GetRelativePosition() + m_Vel * m_Speed * deltaTime;
 	GetOwnerBaseComp()->SetRelativePosition(newPos);
-
 }

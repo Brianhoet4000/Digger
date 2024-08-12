@@ -1,5 +1,5 @@
 #pragma once
-#include "GameCollisionComponent.h"
+#include "Commands.h"
 #include "PlayerOne.h"
 #include "Scene.h"
 #include "TextComponent.h"

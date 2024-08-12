@@ -16,7 +16,7 @@ namespace dae
     public:
         bool ProcessInput(float deltaTime);
         void AddController(unsigned int id);
-        void BindControllerToCommand(unsigned int controllerId, Controller::ControllerButton& button, std::shared_ptr<Command> command);
+        void BindControllerToCommand(unsigned int controllerId, Controller::ControllerButton& button, std::shared_ptr<Command> command, bool overwrite = false);
         void BindKeyToCommand(const Uint8& key, std::shared_ptr<Command> command);
         void UnBindKey(const std::shared_ptr<Command>& command);
         void UnBindControllerCommand(const std::shared_ptr<Command>& command);

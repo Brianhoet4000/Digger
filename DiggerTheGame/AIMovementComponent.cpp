@@ -2,11 +2,8 @@
 #include "GameCollisionMngr.h"
 #include "GameObject.h"
 #include "GoldStateComponent.h"
-#include "HealthComponent.h"
 #include "HobbinComponent.h"
 #include "PlayerManager.h"
-#include "PointComponent.h"
-#include "ScreenManager.h"
 #include "SubjectComponent.h"
 
 dae::AIMovementComponent::AIMovementComponent(dae::GameObject* owner)
@@ -41,7 +38,7 @@ void dae::AIMovementComponent::Update(float deltaTime)
 			if (!goldState->GetCoinsBool() && goldState->GetFallingState() == goldState->GetCurrentState())
 			{
 				PlayerManager::GetInstance().GetPlayers()[0]->GetComponent<SubjectComponent>()->GetSubject()
-					->NotifyObservers(LEVEL_COMPLETED_ENEMIES, 
+					->NotifyObservers(LEVEL_COMPLETED,
 						m_pCollision->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
 				dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(m_pCollision);
 				GetOwnerBaseComp()->MarkTrueForDeleting();

@@ -81,7 +81,6 @@ namespace dae
                     gameObject->SetRelativePosition(ScreenManager::GetInstance().GetLevel()->GetSpawnPosition()[1]);
                     ChangeLives(gameObject);
                 }
-
                 break;
 
             case Event::LEVEL_COMPLETED:
@@ -92,17 +91,17 @@ namespace dae
                     if (dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver")
 	                    ScreenManager::GetInstance().WhenGameOver();
                 }
-                break;
 
-            case Event::LEVEL_COMPLETED_ENEMIES:
-                if(gameObject->GetComponent<SpawnTimerComponent>()->RemainingNumberOfEnemies() <= 0 && GameCollisionMngr::GetInstance().GetAllEnemies().size() <= 1)
+                if (gameObject)
                 {
+                	if (gameObject->GetComponent<SpawnTimerComponent>()->RemainingNumberOfEnemies() <= 0 && GameCollisionMngr::GetInstance().GetAllEnemies().size() <= 1)
+					{
                     dae::ScreenManager::GetInstance().ProceedNextLevel();
 
                     if (dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver")
                         ScreenManager::GetInstance().WhenGameOver();
+					}
                 }
-
                 break;
 
             case Event::GOLD_PICKEDUP:

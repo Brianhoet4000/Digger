@@ -40,8 +40,8 @@ void load()
 
 	dae::SceneManager::GetInstance().CreateScene("Game2");
 
-	auto& sceneGameOver = dae::SceneManager::GetInstance().CreateScene("GameOver");
-	dae::ScreenManager::GetInstance().CreateGameOverScreen(sceneGameOver);
+	dae::SceneManager::GetInstance().CreateScene("GameOver");
+	//dae::ScreenManager::GetInstance().CreateGameOverScreen(sceneGameOver);
 }
 
 int main(int, char* [])

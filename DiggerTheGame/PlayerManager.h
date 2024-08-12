@@ -59,6 +59,15 @@ namespace dae
             }
         }
 
+        void ResetPlayer() const
+        {
+	        for (const auto& element : m_Players)
+	        {
+                element->GetComponent<HealthComponent>()->SetAmount(3);
+                element->GetComponent<PointComponent>()->SetAmount(0);
+	        }
+        }
+
         std::vector<std::shared_ptr<dae::GameObject>> GetPlayers() { return m_Players; }
 
     private:

@@ -64,7 +64,9 @@ namespace dae
                 if (gameObject->GetComponent<HealthComponent>()->GetAmount() <= -1)
                 {
                     dae::SceneManager::GetInstance().GetActiveScene()->RemoveAll();
-                    dae::SceneManager::GetInstance().SetActiveScene("GameOver");
+                	dae::SceneManager::GetInstance().SetActiveScene("GameOver");
+                    ScreenManager::GetInstance().CreateGameOverScreen(*SceneManager::GetInstance().GetActiveScene());
+
                     return;
                 }
 
@@ -86,6 +88,9 @@ namespace dae
                 if (GameCollisionMngr::GetInstance().GetAllEmerald().size() <= 0 && GameCollisionMngr::GetInstance().GetAllGold().size() <= 0)
                 {
                     dae::ScreenManager::GetInstance().ProceedNextLevel();
+
+                    if (dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver")
+	                    ScreenManager::GetInstance().WhenGameOver();
                 }
                 break;
 
@@ -93,6 +98,9 @@ namespace dae
                 if(gameObject->GetComponent<SpawnTimerComponent>()->RemainingNumberOfEnemies() <= 0 && GameCollisionMngr::GetInstance().GetAllEnemies().size() <= 1)
                 {
                     dae::ScreenManager::GetInstance().ProceedNextLevel();
+
+                    if (dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver")
+                        ScreenManager::GetInstance().WhenGameOver();
                 }
 
                 break;

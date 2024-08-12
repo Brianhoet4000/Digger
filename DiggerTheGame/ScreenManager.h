@@ -34,8 +34,14 @@ namespace dae
 			m_CurrentGameMode = state;
 		}
 
-		int GetCurrentLevel() { return m_CurrentLevel; }
+		int GetCurrentLevel() const { return m_CurrentLevel; }
+		void ResetCurrentLevel() { m_CurrentLevel = 0; }
 		void IncrementCurrentLevel() { ++m_CurrentLevel; }
+		void WhenGameOver();
+		void ResetAddedPlayers()
+		{
+			m_AddedPlayers = false;
+		}
 
 		void LevelCreator(dae::Scene& scene);
 		void CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players);
@@ -43,8 +49,7 @@ namespace dae
 		std::shared_ptr<LevelPrefab> GetLevel() { return m_LevelPrefab; }
 
 		void SkipToGameOverLevel();
-		void ProceedNextLevel() const;
-		void LevelComplete() const;
+		void ProceedNextLevel();
 
 	private:
 		friend class Singleton<ScreenManager>;

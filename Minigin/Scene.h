@@ -13,7 +13,8 @@ namespace dae
 		friend Scene& SceneManager::CreateScene(const std::string& name);
 	public:
 		void Add(std::shared_ptr<GameObject> object);
-		void Remove(const std::shared_ptr<GameObject>&);
+		void Remove(const std::shared_ptr<GameObject>& object);
+		void Remove(const GameObject* object);
 		void RemoveAll();
 
 		void Update(float deltaTime);
@@ -34,10 +35,9 @@ namespace dae
 				if (element->GetTag() == "Player_01" || element->GetTag() == "Player_02")
 					continue;
 
-				element.get()->MarkTrueForDeleting();
+				element->MarkTrueForDeleting();
 			}
 		}
-
 
 		~Scene();
 		Scene(const Scene& other) = delete;

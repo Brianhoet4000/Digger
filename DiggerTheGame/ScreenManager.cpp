@@ -182,6 +182,12 @@ namespace dae
 		scene.Add(pMainObj);
 	}
 
+	void ScreenManager::WhenGameOver()
+	{
+		ResetCurrentLevel();
+		dae::ScreenManager::GetInstance().CreateGameOverScreen(*dae::SceneManager::GetInstance().GetActiveScene());
+	}
+
 	void ScreenManager::LevelCreator(dae::Scene& scene)
 	{
 		switch (m_CurrentLevel)
@@ -329,43 +335,43 @@ namespace dae
 	{
 		switch (m_CurrentLevel)
 		{
-		case 0:
-		{
-			SceneManager::GetInstance().NextScene();
-			dae::GameCollisionMngr::GetInstance().ClearAll();
-			IncrementCurrentLevel();
+			case 0:
+			{
+				SceneManager::GetInstance().NextScene();
+				dae::GameCollisionMngr::GetInstance().ClearAll();
+				IncrementCurrentLevel();
 
-			SceneManager::GetInstance().NextScene();
-			IncrementCurrentLevel();
+				SceneManager::GetInstance().NextScene();
+				IncrementCurrentLevel();
 
-			SceneManager::GetInstance().NextScene();
-			IncrementCurrentLevel();
+				SceneManager::GetInstance().NextScene();
+				IncrementCurrentLevel();
 
-			break;
-		}
+				break;
+			}
 
-		case 1:
-		{
-			SceneManager::GetInstance().NextScene();
-			dae::GameCollisionMngr::GetInstance().ClearAll();
-			IncrementCurrentLevel();
+			case 1:
+			{
+				SceneManager::GetInstance().NextScene();
+				dae::GameCollisionMngr::GetInstance().ClearAll();
+				IncrementCurrentLevel();
 
-			SceneManager::GetInstance().NextScene();
-			dae::GameCollisionMngr::GetInstance().ClearAll();
-			IncrementCurrentLevel();
-			break;
-		}
-		case 2:
-		{
-			SceneManager::GetInstance().NextScene();
-			dae::GameCollisionMngr::GetInstance().ClearAll();
-			IncrementCurrentLevel();
-			break;
-		}
+				SceneManager::GetInstance().NextScene();
+				dae::GameCollisionMngr::GetInstance().ClearAll();
+				IncrementCurrentLevel();
+				break;
+			}
+			case 2:
+			{
+				SceneManager::GetInstance().NextScene();
+				dae::GameCollisionMngr::GetInstance().ClearAll();
+				IncrementCurrentLevel();
+				break;
+			}
 		}
 	}
 
-	void ScreenManager::ProceedNextLevel() const
+	void ScreenManager::ProceedNextLevel()
 	{
 		dae::SceneManager::GetInstance().NextScene();
 

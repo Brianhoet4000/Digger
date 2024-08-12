@@ -155,20 +155,36 @@ void GameCommands::AcceptGameMode::Execute(float)
     {
         dae::SceneManager::GetInstance().NextScene();
         dae::ScreenManager::GetInstance().CreateGameScreen(*dae::SceneManager::GetInstance().GetActiveScene());
+        ResetLevel resetLevelCommand;
+        resetLevelCommand.Execute(0.0f);
         dae::servicelocator::get_sound_system().playMusic(0, 10);
         SetKeyPressed(true);
     }
-
-    
 }
 
 void GameCommands::SkipLevel::Execute(float)
 {
     if (GetKeyPressed()) return;
 
-    if(dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver" || 
-        dae::SceneManager::GetInstance().GetActiveSceneName() == "MainMenu")
+    if(dae::SceneManager::GetInstance().GetActiveSceneName() == "MainMenu")
     {
+        SetKeyPressed(true);
+        return;
+    }
+    else if(dae::SceneManager::GetInstance().GetActiveSceneName() == "Game2")
+    {
+        dae::ScreenManager::GetInstance().ProceedNextLevel();
+        dae::SceneManager::GetInstance().DeleteAllObjects();
+        dae::ScreenManager::GetInstance().CreateGameOverScreen(*dae::SceneManager::GetInstance().GetActiveScene());
+        SetKeyPressed(true);
+        return;
+    }
+	if (dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver")
+    {
+	    dae::ScreenManager::GetInstance().CreateGameOverScreen(*dae::SceneManager::GetInstance().GetActiveScene());
+        dae::ScreenManager::GetInstance().ResetCurrentLevel();
+	    dae::SceneManager::GetInstance().SetActiveScene("MainMenu");
+        dae::PlayerManager::GetInstance().ResetPlayer();
         SetKeyPressed(true);
         return;
     }

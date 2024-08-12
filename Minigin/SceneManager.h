@@ -22,6 +22,7 @@ namespace dae
 		Scene* GetActiveScene() const { return m_pScenes[m_ActiveScene].get(); }
 		std::string GetActiveSceneName() const;
 		void IncrementActivescene() { ++m_ActiveScene; }
+		void DeleteAllObjects();
 
 		std::vector<std::shared_ptr<Scene>> GetAllScene() { return m_pScenes; }
 

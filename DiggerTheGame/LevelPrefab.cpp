@@ -20,7 +20,7 @@ dae::LevelPrefab::LevelPrefab(dae::Scene& scene, const std::string& LevelPath)
 	constexpr int height{ 480 };
 
 	//New
-	std::string fileName = "../Data/" + LevelPath + ".json";
+	std::string fileName = "../Data/Levels/" + LevelPath + ".json";
 	std::ifstream inputFile(fileName);
 
 	// Check if file was opened successfully
@@ -74,7 +74,7 @@ dae::LevelPrefab::LevelPrefab(dae::Scene& scene, const std::string& LevelPath)
 		pBlock->AddComponent(pTexture);
 		pBlock->SetRelativePosition({ pos.x, pos.y });
 
-		pTexture->SetTexture("Path.png");
+		pTexture->SetTexture("Sprites/Path.png");
 		pBlock->SetTag("Wall");
 		const auto& Collider = std::make_shared<GameCollisionComponent>(pBlock.get());
 
@@ -86,32 +86,32 @@ dae::LevelPrefab::LevelPrefab(dae::Scene& scene, const std::string& LevelPath)
 		switch (num)
 		{
 		case 0:
-			pTexture->SetTexture("UnbreakableWall.png");
+			pTexture->SetTexture("Sprites/UnbreakableWall.png");
 			pBlock->SetTag("Wall");
 			pBlock->AddComponent(Collider);
 			break;
 		case 1:
-			pTexture->SetTexture("Path.png");
+			pTexture->SetTexture("Sprites/Path.png");
 			pBlock->SetTag("Path");
 			break;
 		case 2:
-			pTexture->SetTexture("Spawn.png");
+			pTexture->SetTexture("Sprites/Spawn.png");
 			pBlock->SetTag("Spawn");
 			m_SpawnPositions.push_back(pos);
 			break;
 		case 3:
-			pTexture->SetTexture("Path.png");
+			pTexture->SetTexture("Sprites/Path.png");
 			pBlock->SetTag("Path");
 			m_BlockPositions.push_back(pos);
 			break;
 		case 4:
-			pTexture->SetTexture("Path.png");
+			pTexture->SetTexture("Sprites/Path.png");
 			pBlock->SetTag("Path");
 			m_BlockPositions.push_back(pos);
 			m_EmeraldPositions.push_back(pos);
 			break;
 		case 5:
-			pTexture->SetTexture("Path.png");
+			pTexture->SetTexture("Sprites/Path.png");
 			pBlock->SetTag("Path");
 			m_BlockPositions.push_back(pos);
 			m_GoldPositions.push_back(pos);
@@ -148,7 +148,7 @@ void dae::LevelPrefab::AddBreakAbleBlocks(dae::Scene& scene)
 		//Texture
 		const auto& pBreakTexture = std::make_shared<dae::TextureComponent>(pBreakBlock.get());
 		pBreakBlock->AddComponent(pBreakTexture);
-		pBreakTexture->SetTexture("BreakableWall.png");
+		pBreakTexture->SetTexture("Sprites/BreakableWall.png");
 	
 		//Collision
 		const auto& pBreakCollider = std::make_shared<dae::GameCollisionComponent>(pBreakBlock.get());
@@ -182,73 +182,3 @@ void dae::LevelPrefab::AddGold(dae::Scene& scene)
 		scene.Add(newGold->ReturnGold());
 	}
 }
-
-//Old
-	//for (size_t i = 0; i < mapVector.size(); ++i)
-	//{
-	//	auto pBlock = std::make_shared<dae::GameObject>();
-	//
-	//	auto pTexture = std::make_shared<dae::TextureComponent>(pBlock.get());
-	//
-	//	m_pLevelObj->AddChild(pBlock);
-	//
-	//	pBlock->AddComponent(pTexture);
-	//	pBlock->SetRelativePosition({ pos.x, pos.y });
-	//
-	//	pTexture->SetTexture("Path.png");
-	//	pBlock->SetTag("Wall");
-	//	auto Collider = std::make_shared<GameCollisionComponent>(pBlock.get());
-	//
-	//	scene.Add(pBlock);
-	//	m_pBlocks.push_back(pBlock);
-	//
-	//	const glm::vec2 size{ pTexture->GetSize() };
-	//
-	//	switch (mapVector[i])
-	//	{
-	//	case 0:
-	//		pTexture->SetTexture("UnbreakableWall.png");
-	//		pBlock->SetTag("Wall");
-	//		pBlock->AddComponent(Collider);
-	//		break;
-	//	case 1:
-	//		pTexture->SetTexture("Path.png");
-	//		pBlock->SetTag("Path");
-	//		break;
-	//	case 2:
-	//		pTexture->SetTexture("Spawn.png");
-	//		pBlock->SetTag("Spawn");
-	//		m_SpawnPositions.push_back(pos);
-	//		break;
-	//	case 3:
-	//		pTexture->SetTexture("Path.png");
-	//		pBlock->SetTag("Path");
-	//		m_BlockPositions.push_back(pos);
-	//		break;
-	//	case 4:
-	//		pTexture->SetTexture("Path.png");
-	//		pBlock->SetTag("Path");
-	//		m_BlockPositions.push_back(pos);
-	//		m_EmeraldPositions.push_back(pos);
-	//		break;
-	//	case 5:
-	//		pTexture->SetTexture("Path.png");
-	//		pBlock->SetTag("Path");
-	//		m_BlockPositions.push_back(pos);
-	//		m_GoldPositions.push_back(pos);
-	//		break;
-	//	case 6:
-	//		m_EnemySpawnPositions = pos;
-	//		break;
-	//		default:
-	//			break;
-	//	}
-	//	pos.x += size.x;
-	//
-	//
-	//	if ((i + 1) % grid.first == 0)
-	//	{
-	//		pos.x = startPos.x;
-	//		pos.y += size.y;
-	//	}
-	//}

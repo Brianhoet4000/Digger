@@ -172,7 +172,7 @@ std::vector<HighscoreComponent::Highscore> HighscoreComponent::GetHighscoreNames
 
     for (const auto& record : highscores)
     {
-        std::cout << record.name << " - " << record.score << std::endl;
+        std::cout << record.name << " - " << record.score << '\n';
     }
 
     return highscores;

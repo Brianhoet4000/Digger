@@ -53,6 +53,7 @@ void dae::BulletComponent::Update(float deltaTime)
 	const auto& enemy = dae::GameCollisionMngr::GetInstance().CheckOverlapWithEnemiesComponent(pColliderBullet);
 	if (enemy != nullptr)
 	{
+		m_OwnerOfBullet->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(SCORE_ADDED_250, m_OwnerOfBullet);
 		m_OwnerOfBullet->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED_ENEMIES, enemy->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
 
 		enemy->GetOwnerBaseComp()->MarkTrueForDeleting();

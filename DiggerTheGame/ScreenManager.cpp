@@ -89,18 +89,7 @@ namespace dae
 		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_F1, SkipLevel);
 		dae::InputManager::GetInstance().BindKeyToCommand(SDL_SCANCODE_R, ResetLevel);
 
-		/*const int controller1Index{ 0 };
-		dae::InputManager::GetInstance().AddController(controller1Index);
-		dae::Controller::ControllerButton controllerButton = dae::Controller::ControllerButton::ButtonY;
-		dae::InputManager::GetInstance().BindControllerToCommand(controller1Index, controllerButton, SkipLevel);
-		controllerButton = dae::Controller::ControllerButton::ButtonX;
-		dae::InputManager::GetInstance().BindControllerToCommand(controller1Index, controllerButton, ResetLevel);*/
-
-
-		dae::servicelocator::register_sound_system(std::make_unique<dae::SoundSystem>());
-		dae::servicelocator::get_sound_system().Load(0, "GamePlaySound.wav");
-		dae::servicelocator::get_sound_system().Load(1, "PickupSound.wav");
-		dae::servicelocator::get_sound_system().Load(2, "MoneyBagBreaking.wav");
+		LoadingSounds();
 	}
 
 	void dae::ScreenManager::CreateGameScreen(dae::Scene& scene)
@@ -194,6 +183,14 @@ namespace dae
 	{
 		ResetCurrentLevel();
 		dae::ScreenManager::GetInstance().CreateGameOverScreen(*dae::SceneManager::GetInstance().GetActiveScene());
+	}
+
+	void ScreenManager::ResetAll()
+	{
+		m_AddedPlayers = false;
+		m_CurrentLevel = 0;
+		PlayerManager::GetInstance().RemoveAllPlayers();
+		m_CurrentGameMode = SinglePlayer;
 	}
 
 	void ScreenManager::LevelCreator(dae::Scene& scene)
@@ -391,4 +388,11 @@ namespace dae
 		}
 	}
 
+	void ScreenManager::LoadingSounds()
+	{
+		dae::servicelocator::register_sound_system(std::make_unique<dae::SoundSystem>());
+		dae::servicelocator::get_sound_system().Load(0, "GamePlaySound.wav");
+		dae::servicelocator::get_sound_system().Load(1, "PickupSound.wav");
+		dae::servicelocator::get_sound_system().Load(2, "MoneyBagBreaking.wav");
+	}
 }

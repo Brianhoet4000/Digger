@@ -182,9 +182,10 @@ void GameCommands::SkipLevel::Execute(float)
 	if (dae::SceneManager::GetInstance().GetActiveSceneName() == "GameOver")
     {
 	    dae::ScreenManager::GetInstance().CreateGameOverScreen(*dae::SceneManager::GetInstance().GetActiveScene());
-        dae::ScreenManager::GetInstance().ResetCurrentLevel();
+        dae::ScreenManager::GetInstance().ResetAll();
 	    dae::SceneManager::GetInstance().SetActiveScene("MainMenu");
-        dae::PlayerManager::GetInstance().ResetPlayer();
+        dae::ScreenManager::GetInstance().CreateMenuScreen(*dae::SceneManager::GetInstance().GetActiveScene());
+        //dae::PlayerManager::GetInstance().ResetPlayer();
         SetKeyPressed(true);
         return;
     }

@@ -26,25 +26,39 @@ void dae::AIMovementComponent::Update(float deltaTime)
 		return;
 	}
 
-	const auto& pOverlappedBox = dae::GameCollisionMngr::GetInstance().CheckForCollisionComponent(m_pCollision);
+	GameCollisionComponent* pOverlappedBox = dae::GameCollisionMngr::GetInstance().CheckForCollisionComponent(m_pCollision);
 	if (pOverlappedBox != nullptr)
 	{
-		//Gold Related
-		if (pOverlappedBox->GetOwnerBaseComp()->GetTag() == "Gold")
+		const auto& ownerBaseComp = pOverlappedBox->GetOwnerBaseComp();
+		if (ownerBaseComp != nullptr && ownerBaseComp->GetTag() == "Gold")
 		{
-			const auto& goldState = pOverlappedBox->GetOwnerBaseComp()->GetComponent<dae::GoldStateComponent>();
-		
-			//If Gold not Broken and falls die
-			if (!goldState->GetCoinsBool() && goldState->GetFallingState() == goldState->GetCurrentState())
+			const auto& goldState = ownerBaseComp->GetComponent<dae::GoldStateComponent>();
+
+			if (goldState != nullptr)
 			{
-				PlayerManager::GetInstance().GetPlayers()[0]->GetComponent<SubjectComponent>()->GetSubject()
-					->NotifyObservers(LEVEL_COMPLETED,
-						m_pCollision->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->GetPickedUpPlayer());
-				dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(m_pCollision);
-				GetOwnerBaseComp()->MarkTrueForDeleting();
+				// If Gold not Broken and falls die
+				if (!goldState->GetCoinsBool() && goldState->GetFallingState() == goldState->GetCurrentState())
+				{
+					const auto& subjectComponent = PlayerManager::GetInstance().GetPlayers()[0]->GetComponent<SubjectComponent>();
+					if (subjectComponent != nullptr)
+					{
+						const auto& subject = subjectComponent->GetSubject();
+						if (subject != nullptr)
+						{
+							auto* overlappedPlayer = m_pCollision->GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>();
+							if (overlappedPlayer != nullptr)
+							{
+								subject->NotifyObservers(LEVEL_COMPLETED, overlappedPlayer->GetPickedUpPlayer());
+								dae::GameCollisionMngr::GetInstance().RemoveEnemyBox(m_pCollision);
+								GetOwnerBaseComp()->MarkTrueForDeleting();
+							}
+						}
+					}
+				}
 			}
 		}
 	}
+
 
 	const auto& pHobbincomp = GetOwnerBaseComp()->GetComponent<dae::HobbinComponent>();
 

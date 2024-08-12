@@ -404,7 +404,7 @@ namespace dae
 
     void GameCollisionMngr::PlayerLogicBox(dae::GameCollisionComponent* box, glm::vec2 dir)
     {
-        const auto& OverlappedBox = CheckForCollisionComponent(box);
+    	GameCollisionComponent* OverlappedBox = CheckForCollisionComponent(box);
 
         if (OverlappedBox != nullptr)
         {

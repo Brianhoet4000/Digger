@@ -20,3 +20,14 @@ bribri, 150
 brian, 1800
 brian, 200
 broanm, 400
+brian, 400
+brian, 175
+testing, 550
+lol, 450
+lol, 450
+bier, 450
+test, 650
+haha, 925
+lol, 900
+bruh, 275
+let's go, 50

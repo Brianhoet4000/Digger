@@ -38,10 +38,8 @@ namespace dae
 		void ResetCurrentLevel() { m_CurrentLevel = 0; }
 		void IncrementCurrentLevel() { ++m_CurrentLevel; }
 		void WhenGameOver();
-		void ResetAddedPlayers()
-		{
-			m_AddedPlayers = false;
-		}
+		void ResetAll();
+		
 
 		void LevelCreator(dae::Scene& scene);
 		void CreateUI(dae::Scene& scene, std::vector<std::shared_ptr<GameObject>>& players);
@@ -64,6 +62,8 @@ namespace dae
 		bool m_AddedPlayers = false;
 		std::shared_ptr<Font> m_pFont;
 		std::shared_ptr<LevelPrefab> m_LevelPrefab;
+
+		static void LoadingSounds();
 	};
 
 }

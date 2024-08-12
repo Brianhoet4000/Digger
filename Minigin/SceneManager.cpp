@@ -94,9 +94,6 @@ void dae::SceneManager::DeleteAllObjects()
 {
 	for (const auto& scene : m_pScenes)
 	{
-		if(scene->GetName() == "MainMenu")
-			continue;
-
 		scene->MarkAllTrue();
 	}
 }

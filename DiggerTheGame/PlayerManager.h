@@ -4,6 +4,7 @@
 #include "PlayerOne.h"
 #include "PlayerTwo.h"
 #include "GameObserver.h" 
+#include "InputManager.h"
 
 namespace dae
 {
@@ -37,6 +38,7 @@ namespace dae
 
         void RemoveAllPlayers()
         {
+            dae::InputManager::GetInstance().UnBindAllCommands();
             m_Players.clear();
         }
 

@@ -84,7 +84,7 @@ namespace dae
                 break;
 
             case Event::LEVEL_COMPLETED:
-                if (GameCollisionMngr::GetInstance().GetAllEmerald().size() <= 0 && GameCollisionMngr::GetInstance().GetAllGold().size() <= 0)
+                if (GameCollisionMngr::GetInstance().GetAllEmerald().size() <= 0)
                 {
                     dae::ScreenManager::GetInstance().ProceedNextLevel();
 

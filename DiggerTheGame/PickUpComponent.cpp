@@ -35,9 +35,6 @@ void dae::PickUpComponent::Update(float)
         {
             GetOwnerBaseComp()->GetComponent<GetOverlappedPlayer>()->SetPickedUpPlayer(playerOverlapped->GetOwnerBaseComp());
             playerOverlapped->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(GOLD_PICKEDUP, GetOwnerBaseComp());
-
-            if(!playerOverlapped->GetIsVersus())
-            playerOverlapped->GetOwnerBaseComp()->GetComponent<SubjectComponent>()->GetSubject()->NotifyObservers(LEVEL_COMPLETED);
         }
     }
     else if (GetOwnerBaseComp()->GetTag() == "Break")

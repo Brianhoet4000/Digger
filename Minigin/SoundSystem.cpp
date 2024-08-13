@@ -79,7 +79,7 @@ namespace dae
             else
             {
                 Mix_Resume(-1);
-                Mix_Volume(-1, MIX_MAX_VOLUME);
+                Mix_Volume(-1, 5);
             }
         }
 

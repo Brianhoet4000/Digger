@@ -73,6 +73,7 @@ void dae::InputManager::UnBindControllerCommand(const std::shared_ptr<Command>& 
 void dae::InputManager::UnBindAllControllerCommands()
 {
     m_Commands.clear();
+    m_Controllers.clear();
 }
 
 void dae::InputManager::UpdateControllers() const

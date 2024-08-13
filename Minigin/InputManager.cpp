@@ -94,7 +94,6 @@ void dae::InputManager::ProcessControllerInput(float deltaTime) const
             if (controller->GetIDOfController() == controllerId && controller->IsPressed(static_cast<int>(controllerKey)))
             {
                 command.second->Execute(deltaTime);
-                return;
             }
             else
             {
@@ -142,7 +141,6 @@ void dae::InputManager::ProcessKeyboardInput(float deltaTime) const
         if (pStates[keyCommand.first])
         {
             keyCommand.second->Execute(deltaTime);
-            return;
         }
         else
         {
